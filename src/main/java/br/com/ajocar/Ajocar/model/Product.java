@@ -8,7 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Products implements Serializable {
+public class Product implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@Id
@@ -19,11 +19,11 @@ public class Products implements Serializable {
 	private Integer quantity;
 	private Double preco;
 
-	public Products() {
+	public Product() {
 
 	}
 
-	public Products(Integer id, String name, Integer quantity, Double preco) {
+	public Product(Integer id, String name, Integer quantity, Double preco) {
 		this.id = id;
 		this.name = name;
 		this.quantity = quantity;
