@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Product implements Serializable {
@@ -18,6 +20,9 @@ public class Product implements Serializable {
 	private String name;
 	private Integer quantity;
 	private Double preco;
+	@ManyToOne
+	@JoinColumn(name="serviceOrder_id")
+	private ServiceOrder serviceOrder;
 
 	public Product() {
 
@@ -62,4 +67,11 @@ public class Product implements Serializable {
 		return this.preco;
 	}
 
+	public ServiceOrder getServiceOrder() {
+		return serviceOrder;
+	}
+
+	public void setServiceOrder(ServiceOrder serviceOrder) {
+		this.serviceOrder = serviceOrder;
+	}
 }

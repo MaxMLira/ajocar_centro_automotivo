@@ -4,10 +4,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Client implements Serializable {
@@ -20,8 +23,13 @@ public class Client implements Serializable {
 	private Integer id;
 	private String name;
 	private String tel;
+	
+	@OneToOne(cascade= CascadeType.ALL)
 	private Address address;
+	
+	@OneToMany(mappedBy="client")
 	private List<Car> cars = new ArrayList<>();
+	@OneToMany(mappedBy="client")
 	private List<ServiceOrder> serviceOrders = new ArrayList<>();
 
 	public Client() {
@@ -60,7 +68,7 @@ public class Client implements Serializable {
 	}
 
 	public List<Car> getCars() {
-		return cars;
+		return this.cars;
 	}
 
 	public void setCars(List<Car> cars) {
@@ -68,7 +76,7 @@ public class Client implements Serializable {
 	}
 
 	public List<ServiceOrder> getServiceOrders() {
-		return serviceOrders;
+		return this.serviceOrders;
 	}
 
 	public void setServiceOrders(List<ServiceOrder> serviceOrders) {

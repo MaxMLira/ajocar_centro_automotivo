@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 
 @Entity
@@ -16,13 +18,15 @@ public class Car implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
-	private Integer id;
-	
+	private Integer id;	
 	private String vehicle;
 	private String board;
 	private String color;
 	private String fuel;
 	private Integer kmActually;
+	@ManyToOne
+	@JoinColumn(name="client_id")	
+	private Client client;
 	
 	public Car() {
 		
@@ -83,6 +87,14 @@ public class Car implements Serializable{
 
 	public Integer getKmActually() {
 		return this.kmActually;
+	}
+
+	public Client getClient() {
+		return this.client;
+	}
+
+	public void setClient(Client client) {
+		this.client = client;
 	}
 
 }

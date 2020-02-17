@@ -1,13 +1,9 @@
 package br.com.ajocar.Ajocar.model;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
 @Entity
 public class ServiceOrder implements Serializable {
@@ -22,21 +18,22 @@ public class ServiceOrder implements Serializable {
 	private Double piecesTotal;
 	private Double serviceCost;
 	private Double totalWork;
-	public List<Product> products = new ArrayList<>();
+	@OneToMany(mappedBy="serviceOrder")
+	private List<Product> products = new ArrayList<>();
+	@ManyToOne
+	@JoinColumn(name="client_id")
+	private Client client;
 
 	public ServiceOrder() {
 
 	}
 
-	public ServiceOrder(Integer id, String serviceObservation, Double piecesTotal, Double serviceCost,
-			Double totalWork) {
+	public ServiceOrder(Integer id, String serviceObservation,Double serviceCost) {
 
 		this.id = id;
 		this.serviceObservation = serviceObservation;
-		this.piecesTotal = piecesTotal;
-		this.serviceCost = serviceCost;
-		this.totalWork = totalWork;
-
+		this.serviceCost = serviceCost;	
+	
 	}
 
 	public void setServiceObservation(String serviceObservation) {
@@ -80,11 +77,35 @@ public class ServiceOrder implements Serializable {
 	}
 
 	public List<Product> getProducts() {
-		return products;
+		return this.products;
 	}
 
 	public void setProducts(List<Product> products) {
 		this.products = products;
+		this.calcPiecesTotal();
+		this.calcTotalWork();
+	}
+	
+	private void calcPiecesTotal() {
+		this.piecesTotal = 0.0;
+		if(!this.products.isEmpty()) {
+			this.products.forEach(product->{
+				this.piecesTotal += (product.getPreco() * product.getQuantity());
+			});
+		}else {
+			this.piecesTotal = 0.0;
+		}
+	}
+	private void calcTotalWork() {
+		this.totalWork = piecesTotal + serviceCost;
 	}
 
+
+	public Client getClient() {
+		return client;
+	}
+
+	public void setClient(Client client) {
+		this.client = client;
+	}
 }
