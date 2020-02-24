@@ -1,4 +1,4 @@
-package br.com.ajocar.Ajocar.controller;
+package br.com.ajocar.Ajocar.controllers;
 
 public class ServiceOrderController {
 

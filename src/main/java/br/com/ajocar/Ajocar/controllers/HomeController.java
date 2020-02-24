@@ -1,4 +1,4 @@
-package br.com.ajocar.Ajocar.controller;
+package br.com.ajocar.Ajocar.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
