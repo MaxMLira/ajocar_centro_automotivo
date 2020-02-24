@@ -5,12 +5,13 @@
 body{
     width: 1024px;
     margin:0 auto;
+    border: 1px solid black;
 }
 header{     
     height: 210px;    
     padding: 12px 0px;
     border-bottom: 1px solid black;
-    background-image: linear-gradient(red,black);
+    background-image: linear-gradient(#c62828,#212121);
 }
 header img{
     width: 210px;
@@ -34,12 +35,20 @@ nav ul li{
     font-size: 29px;
 
 }
-
+section{
+    margin: 5% auto;
+    width: 60%; 
+}
+section h1{
+    color:#c62828;
+    font-size: 35px;
+}
 main{    
-    background-color: red;    
+    
     height: 500px;
 }
 footer{
     background-color: black;
     height: 100px;
+    color: #ffffff;
 }
