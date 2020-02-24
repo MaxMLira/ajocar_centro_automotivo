@@ -16,4 +16,11 @@ public class ServiceOrderController {
 		home.setViewName("serviceOrder");
 		return home;
 	}
+
+	@GetMapping("/new")
+	public ModelAndView newserviceOrder() {
+		ModelAndView newServiceOrder = new ModelAndView();
+		newServiceOrder.setViewName("serviceAdd");
+		return newServiceOrder;
+	}
 }

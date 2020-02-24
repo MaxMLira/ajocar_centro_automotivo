@@ -16,28 +16,57 @@ public class ClientService {
 
 	@Autowired
 	private CarService carService;
-	
+
 	public List<Client> getAll() {
 		return repository.findAll();
 	}
 
 	public String saveClient(Client client) {
-		if (client.getName().isEmpty()) {
-			return "O nome do cliente não pode estar vazio!";
+
+		String message = null;
+
+		if (client.getName() == null || client.getName().isEmpty()) {
+			message = "O nome do cliente não pode estar vazio!";
+			return message;
 		}
-		if (client.getTel().isEmpty()) {
-			return "O telefone deve ser cadastrado!";
+		if (client.getTel() == null || client.getTel().isEmpty()) {
+			message = "O telefone deve ser cadastrado!";
+			return message;
 		}
-		if (client.getAddress() == null) {
-			return "O Endereço deve ser cadastrado!";
+		message = verificyAddress(client);
+		if(!message.equals("")) {
+			return message;
 		}
+
 		if (client.getCars() == null || client.getCars().size() == 0) {
-			return "Pelo menos um carro deve ser cadastrado!";
+			message = "Pelo menos um carro deve ser cadastrado!";
+			return message;
 		}
 		repository.save(client);
-		carService.saveCars(client.getCars()); 
+		carService.saveCars(client.getCars(), client);
 
 		return "Cadastrado com sucesso!";
 	}
 
+	private String verificyAddress(Client client) {
+
+		if (client.getAddress() == null) {
+			return "O Endereço deve ser cadastrado!";
+		}
+		if (client.getAddress().getAddress() == null || client.getAddress().getAddress().isEmpty()) {
+			return "A rua é obrigatória!";
+		}
+		if (client.getAddress().getNumber() == null ||client.getAddress().getNumber().isEmpty()) {
+			return "O número da residência é obrigatório!";
+		}
+		if (client.getAddress().getDistric() == null || client.getAddress().getDistric().isEmpty()) {
+			return "O nome do bairro é obrigatório!";
+		}
+		if (client.getAddress().getState()  == null || client.getAddress().getState().isEmpty()) {
+			return "O nome do estado é obrigatório!";
+		}
+
+		return "";
+
+	}
 }
