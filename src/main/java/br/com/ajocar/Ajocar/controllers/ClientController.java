@@ -26,5 +26,12 @@ public class ClientController {
         home.addObject("clients",clients);
 		return home;
 	}
+
+    @GetMapping("/new")
+    public ModelAndView newClient() {
+        ModelAndView newClient = new ModelAndView();
+        newClient.setViewName("clientAdd");
+        return newClient;
+    }
 }
 
