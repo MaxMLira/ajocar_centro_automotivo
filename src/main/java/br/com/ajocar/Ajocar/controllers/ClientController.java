@@ -2,6 +2,7 @@ package br.com.ajocar.Ajocar.controllers;
 
 import java.util.List;
 
+import br.com.ajocar.Ajocar.dto.ClientDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,8 +38,9 @@ public class ClientController {
 	}
 
 	@PostMapping("/save")
-	public String saveClient(@RequestBody Client client) {
-		return service.saveClient(client);
+	public String saveClient(ClientDto client) {
+
+		return client.toString();//service.saveClient(client);
 	}
 	
 
