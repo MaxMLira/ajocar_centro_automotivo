@@ -1,8 +1,5 @@
 package br.com.ajocar.Ajocar.dto;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class ClientDto {
 
     private String name;
@@ -11,50 +8,49 @@ public class ClientDto {
     private String distric;
     private String number;
     private String state;
-    private String vehicle;
-    private String board;
-    private String km;
+    private String vehicle[];
+    private String board[];
+    private String km[];
+    private String color[];
+    private String fuel[];
 
-    private String color;
-    private String fuel;
-
-    public String getVehicle() {
+    public String[] getVehicle() {
         return vehicle;
     }
 
-    public void setVehicle(String vehicle) {
+    public void setVehicle(String[] vehicle) {
         this.vehicle = vehicle;
     }
 
-    public String getBoard() {
+    public String[] getBoard() {
         return board;
     }
 
-    public void setBoard(String board) {
+    public void setBoard(String[] board) {
         this.board = board;
     }
 
-    public String getKm() {
+    public String[] getKm() {
         return km;
     }
 
-    public void setKm(String km) {
+    public void setKm(String[] km) {
         this.km = km;
     }
 
-    public String getColor() {
+    public String[] getColor() {
         return color;
     }
 
-    public void setColor(String color) {
+    public void setColor(String[] color) {
         this.color = color;
     }
 
-    public String getFuel() {
+    public String[] getFuel() {
         return fuel;
     }
 
-    public void setFuel(String fuel) {
+    public void setFuel(String[] fuel) {
         this.fuel = fuel;
     }
 
@@ -107,7 +103,6 @@ public class ClientDto {
     }
 
 
-
     @Override
     public String toString() {
         return "ClientDto{" +
@@ -117,7 +112,11 @@ public class ClientDto {
                 ", distric='" + distric + '\'' +
                 ", number='" + number + '\'' +
                 ", state='" + state + '\'' +
-
+                ", vehicle='" + vehicle + '\'' +
+                ", board='" + board + '\'' +
+                ", km='" + km + '\'' +
+                ", color='" + color + '\'' +
+                ", fuel='" + fuel + '\'' +
                 '}';
     }
 }
