@@ -47,6 +47,13 @@ main{
     
     height: 700px;
 }
+.carInput{
+    width: 18%;
+    margin-bottom: 25px;
+}
+.spanAddCar{
+    margin-bottom: 25px;
+}
 footer{
     background-color: black;
     height: 100px;

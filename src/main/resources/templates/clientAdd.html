@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/bootstrap.min.css" >
     <link rel="stylesheet" href="/css/style.css">
     <title>Ajocar</title>
 </head>
@@ -40,7 +40,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="telCliente">Telefone do cliente </label>
-                                <input type="tel" class="form-control" id="telCliente" required name="tel" placeholder="telefone do cliente">
+                                <input type="tel" class="form-control" id="telCliente" required  name="tel" placeholder="telefone do cliente">
                             </div>
                             <div class="form-group">
                                 <label for="ruaCliente">Rua </label>
@@ -65,6 +65,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <table class="table" id="table">
+                                <span>Você deve adicionar pelo menos um carro ao cliente</span>
                                 <tr>
                                     <th scope="col">Placa</th>
                                     <th scope="col">Combústivel</th>
@@ -76,19 +77,25 @@
                                 <tr></tr>
                                 </tbody>
                             </table>
-                            <input type="text" required name="boardA" id="board"  placeholder="placa">
-                            <input type="text"  required vname="fuelA" id="fuel" placeholder="combustivel">
-                            <input type="text" required name="colorA" id="color" placeholder="cor">
-                            <input type="text" required name="kmA" id="km" placeholder="km">
-                            <input type="text" required name="vehicleA" id="vehicle" placeholder="veiculo">
+                            <div id="addCar">
+                                <input type="text" class="carInput" required name="boards" id="board"  placeholder="placa">
+                                <input type="text"   class="carInput" required name="fuels" id="fuel" placeholder="combustivel">
+                                <input type="text"  class="carInput" required name="colors" id="color" placeholder="cor">
+                                <input type="number"  class="carInput" required name="kms" id="km" placeholder="km">
+                                <input type="text"  class="carInput" required name="vehicles" id="vehicle" placeholder="veiculo">
+                                <div class="spanAddCar">
+                                    <span class="btn btn-primary" id="botaoAdd" onclick="addItem(event)">adicionar carro</span>
+                                    <span class="btn btn-danger" onclick="removeItem(event)">Remover carro</span>
+                                </div>
+                            </div>
+                            <span id="newCar" style="display: none;cursor: pointer;text-decoration: underline" onclick="newCar()">Clique aqui para adicionar um novo carro</span>
                             <br>
-                            <button onclick="addItem(event)">adicionar carro</button>
-                            <button onclick="removeItem(event)">Remover carro</button>
+
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <input type="submit" class="btn btn-primary" value="Salvar" onclick="save()">
+                            <input type="submit" class="btn btn-primary" value="Salvar" >
                         </div>
                     </div>
 
@@ -116,62 +123,120 @@
         e.preventDefault();
         var tb = document.getElementById("dinamic-table-body");
         var valueVehicle = document.getElementById("vehicle").value;
+        verifyValue(valueVehicle);
         var board = document.getElementById("board").value;
+        verifyValue(board);
         var valueKm = document.getElementById("km").value;
+        verifyValue(valueKm);
         var valueColor = document.getElementById("color").value;
         var valueFuel = document.getElementById("fuel").value;
-        var tr = document.createElement("tr");
 
-        tr.appendChild(document.createElement("td"));
-        tr.appendChild(document.createElement("td"));
-        tr.appendChild(document.createElement("td"));
-        tr.appendChild(document.createElement("td"));
-        tr.appendChild(document.createElement("td"));
-        tr.appendChild(document.createElement("td"));
-        var tds = tr.getElementsByTagName("td");
-        var input1 = document.createElement("input");
-        var input2 = document.createElement("input");
-        var input3 = document.createElement("input");
-        var input4 = document.createElement("input");
-        var input5 = document.createElement("input");
-        input1.type = 'hidden'
-        input2.type = 'hidden'
-        input3.type = 'hidden'
-        input4.type = 'hidden'
-        input5.type = 'hidden'
-        input1.name = "vehicle";
-        input1.value = valueVehicle;
-        input2.name = "board";
-        input2.value = board;
-        input3.name = "km";
-        input3.value = valueKm;
-        input4.name = "color";
-        input4.value = valueColor;
-        input5.name = "fuel";
-        input5.value = valueFuel;
-        tds[0].appendChild(document.createTextNode(board));
-        tds[0].appendChild(input2);
+        if(verifyValue(valueFuel)== true && verifyValue(valueColor) == true && verifyValue(valueVehicle) == true
+            && verifyValue(valueKm) == true && verifyValue(board) == true) {
 
-        tds[1].appendChild(document.createTextNode(valueFuel));
-        tds[1].appendChild(input5);
+            var tr = document.createElement("tr");
 
-        tds[2].appendChild(document.createTextNode(valueColor));
-        tds[2].appendChild(input4);
+            tr.appendChild(document.createElement("td"));
+            tr.appendChild(document.createElement("td"));
+            tr.appendChild(document.createElement("td"));
+            tr.appendChild(document.createElement("td"));
+            tr.appendChild(document.createElement("td"));
+            tr.appendChild(document.createElement("td"));
+            var tds = tr.getElementsByTagName("td");
+            var input1 = document.createElement("input");
+            var input2 = document.createElement("input");
+            var input3 = document.createElement("input");
+            var input4 = document.createElement("input");
+            var input5 = document.createElement("input");
+            input1.type = 'hidden'
+            input2.type = 'hidden'
+            input3.type = 'hidden'
+            input4.type = 'hidden'
+            input5.type = 'hidden'
+            input1.name = "vehicle";
+            input1.value = valueVehicle;
+            input2.name = "board";
+            input2.value = board;
+            input3.name = "km";
+            input3.value = valueKm;
+            input4.name = "color";
+            input4.value = valueColor;
+            input5.name = "fuel";
+            input5.value = valueFuel;
+            tds[0].appendChild(document.createTextNode(board));
+            tds[0].appendChild(input2);
 
-        tds[3].appendChild(document.createTextNode(valueKm));
-        tds[3].appendChild(input3);
+            tds[1].appendChild(document.createTextNode(valueFuel));
+            tds[1].appendChild(input5);
 
-        tds[4].appendChild(document.createTextNode(valueVehicle));
-        tds[4].appendChild(input1);
+            tds[2].appendChild(document.createTextNode(valueColor));
+            tds[2].appendChild(input4);
+
+            tds[3].appendChild(document.createTextNode(valueKm));
+            tds[3].appendChild(input3);
+
+            tds[4].appendChild(document.createTextNode(valueVehicle));
+            tds[4].appendChild(input1);
 
 
-        tb.appendChild(tr);
+            tb.appendChild(tr);
+            clearInputCar();
+            document.getElementById("addCar").style.display = 'none';
+            var span = document.getElementById("newCar");
+            span.style.display = 'block';
+            span.style.cursor = 'pointer';
+            span.style.textDecoration = 'underline';
+            span.style.color = 'black';
+            span.innerText = "Clique aqui para adicionar um novo carro";
+
+        }else{
+           var span =  document.getElementById("newCar");
+           span.style.display = 'block';
+           span.style.cursor = 'default';
+           span.style.textDecoration = 'none';
+           span.style.color = 'red';
+           span.innerText = "Você deve preencher todos os campos!";
+
+        }
+
+    }
+    function verifyValue(value){
+        if(value === ''){
+            return false;
+        }
+        return true;
+    }
+
+    function clearInputCar() {
+        var vehicle = document.getElementById("vehicle");
+        vehicle.value ='';
+        vehicle.required = false;
+        var board = document.getElementById("board")
+        board.value = '';
+        board.required = false;
+        var km = document.getElementById("km");
+        km.value = '';
+        km.required = false;
+        var color  = document.getElementById("color");
+        color.value =  '';
+        color.required = false;
+        var fuel = document.getElementById("fuel");
+        fuel.value = '';
+        fuel.required = false;
+
+    }
+
+
+    function newCar() {
+        document.getElementById("addCar").style.display = 'block';
+        document.getElementById("newCar").style.display = 'none';
     }
 
     function removeItem(e){
         e.preventDefault();
         var tb = document.getElementById("table");
         tb.deleteRow(1);
+        //criar a function de checar required
     }
 </script>
 </body>
