@@ -39,8 +39,8 @@ public class ClientController {
 
 	@PostMapping("/save")
 	public String saveClient(ClientDto client) {
-
-		return client.toString();//service.saveClient(client);
+		String feed = service.saveClient(client);
+		return "redirect:/client?feed=".concat(feed);
 	}
 	
 

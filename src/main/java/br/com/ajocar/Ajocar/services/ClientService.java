@@ -1,12 +1,12 @@
 package br.com.ajocar.Ajocar.services;
 
-import java.util.List;
-
+import br.com.ajocar.Ajocar.dto.ClientDto;
+import br.com.ajocar.Ajocar.model.Client;
+import br.com.ajocar.Ajocar.repositories.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.ajocar.Ajocar.model.Client;
-import br.com.ajocar.Ajocar.repositories.ClientRepository;
+import java.util.List;
 
 @Service
 public class ClientService {
@@ -21,7 +21,8 @@ public class ClientService {
 		return repository.findAll();
 	}
 
-	public String saveClient(Client client) {
+	public String saveClient(ClientDto clientDto) {
+		Client client = Client.toModel(clientDto);
 
 		String message = null;
 
@@ -46,6 +47,14 @@ public class ClientService {
 		carService.saveCars(client.getCars(), client);
 
 		return "Cadastrado com sucesso!";
+	}
+
+	public ClientDto getOne(){
+		return null;
+	}
+
+	public void updateClient(){
+
 	}
 
 	private String verificyAddress(Client client) {

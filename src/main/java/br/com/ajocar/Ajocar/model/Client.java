@@ -1,5 +1,7 @@
 package br.com.ajocar.Ajocar.model;
 
+import br.com.ajocar.Ajocar.dto.ClientDto;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +43,46 @@ public class Client implements Serializable {
 		this.name = name;
 		this.tel = tel;
 		this.address = address;
+	}
+
+	public static Client toModel(ClientDto clientDto) {
+		Client client = new Client();
+		client.setName(clientDto.getName());
+		client.setTel(clientDto.getTel());
+		Address address = new Address(null,clientDto.getAddress(),clientDto.getNumber(),
+				clientDto.getDistric(),clientDto.getState());
+		client.setAddress(address);
+		int sizeVehicle = clientDto.getVehicle().length;
+		int sizeKm = clientDto.getVehicle().length;
+		int sizeColor = clientDto.getVehicle().length;
+		int sizeBoard = clientDto.getVehicle().length;
+		int sizeFuel = clientDto.getVehicle().length;
+		List<Car> cars = new ArrayList<>();
+		for(int i =0; i< sizeVehicle;i++){
+			Car car = new Car();
+			String vehicle = clientDto.getVehicle()[i];
+			for (int j=0; j<sizeBoard;j++){
+				String board = clientDto.getBoard()[j];
+				for (int k=0; k<sizeKm;k++){
+					String km = clientDto.getKm()[k];
+					for (int l=0; l<sizeColor;l++){
+						String color = clientDto.getColor()[l];
+						for (int f=0; f<sizeFuel;f++){
+							String fuel = clientDto.getFuel()[f];
+							car.setVehicle(vehicle);
+							car.setFuel(fuel);
+							car.setColor(color);
+							car.setKmActually(Integer.parseInt(km));
+							car.setBoard(board);
+							cars.add(car);
+						}
+					}
+				}
+			}
+		}
+		client.setCars(cars);
+
+		return client;
 	}
 
 	public void setName(String name) {
