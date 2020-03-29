@@ -1,5 +1,7 @@
 package br.com.ajocar.Ajocar.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -18,6 +20,7 @@ public class ServiceOrder implements Serializable {
 	private Double piecesTotal;
 	private Double serviceCost;
 	private Double totalWork;
+	@JsonBackReference
 	@OneToMany(mappedBy="serviceOrder")
 	private List<Product> products = new ArrayList<>();
 	@ManyToOne

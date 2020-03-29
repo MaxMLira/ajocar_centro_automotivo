@@ -3,10 +3,12 @@ package br.com.ajocar.Ajocar.services;
 import br.com.ajocar.Ajocar.dto.ClientDto;
 import br.com.ajocar.Ajocar.model.Client;
 import br.com.ajocar.Ajocar.repositories.ClientRepository;
+import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ClientService {
@@ -77,5 +79,12 @@ public class ClientService {
 
 		return "";
 
+	}
+
+	public Client find(Integer id){
+		Optional<Client> client = repository.findById(id);
+
+		return client.orElseThrow(() -> new ObjectNotFoundException(
+				"Cliente não encontrado", Client.class.getName()));
 	}
 }

@@ -1,6 +1,7 @@
 package br.com.ajocar.Ajocar.model;
 
 import br.com.ajocar.Ajocar.dto.ClientDto;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -25,12 +26,13 @@ public class Client implements Serializable {
 	private Integer id;
 	private String name;
 	private String tel;
-	
+	@JsonBackReference
 	@OneToOne(cascade= CascadeType.ALL)
 	private Address address;
-	
+	@JsonBackReference
 	@OneToMany(mappedBy="client")
 	private List<Car> cars = new ArrayList<>();
+	@JsonBackReference
 	@OneToMany(mappedBy="client")
 	private List<ServiceOrder> serviceOrders = new ArrayList<>();
 

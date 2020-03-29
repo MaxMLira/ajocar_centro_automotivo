@@ -4,11 +4,9 @@ import java.util.List;
 
 import br.com.ajocar.Ajocar.dto.ClientDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.ajocar.Ajocar.model.Client;
@@ -41,6 +39,13 @@ public class ClientController {
 	public String saveClient(ClientDto client) {
 		String feed = service.saveClient(client);
 		return "redirect:/client?feed=".concat(feed);
+	}
+
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	public ResponseEntity<?> find (@PathVariable Integer id){
+		Client client = service.find(id);
+
+		return ResponseEntity.ok().body(client);
 	}
 	
 
