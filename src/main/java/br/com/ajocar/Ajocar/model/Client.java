@@ -94,6 +94,9 @@ public class Client implements Serializable {
 	public String getName() {
 		return this.name;
 	}
+	public Integer getId(){
+		return this.id;
+	}
 
 	public void setTel(String tel) {
 		this.tel = tel;

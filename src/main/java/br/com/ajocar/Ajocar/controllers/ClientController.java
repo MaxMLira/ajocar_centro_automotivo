@@ -37,8 +37,8 @@ public class ClientController {
 
 	@PostMapping("/save")
 	public String saveClient(ClientDto client) {
-		String feed = service.saveClient(client);
-		return "redirect:/client?feed=".concat(feed);
+		Integer id = service.saveClient(client);
+		return "redirect:/redirectPage/"+id;
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)

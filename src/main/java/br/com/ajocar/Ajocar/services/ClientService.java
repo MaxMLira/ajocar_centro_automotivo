@@ -23,32 +23,32 @@ public class ClientService {
 		return repository.findAll();
 	}
 
-	public String saveClient(ClientDto clientDto) {
+	public Integer saveClient(ClientDto clientDto) {
 		Client client = Client.toModel(clientDto);
 
 		String message = null;
 
 		if (client.getName() == null || client.getName().isEmpty()) {
 			message = "O nome do cliente não pode estar vazio!";
-			return message;
+			return null;
 		}
 		if (client.getTel() == null || client.getTel().isEmpty()) {
 			message = "O telefone deve ser cadastrado!";
-			return message;
+			return null;
 		}
 		message = verificyAddress(client);
 		if(!message.equals("")) {
-			return message;
+			return null;
 		}
 
 		if (client.getCars() == null || client.getCars().size() == 0) {
 			message = "Pelo menos um carro deve ser cadastrado!";
-			return message;
+			return null;
 		}
 		repository.save(client);
 		carService.saveCars(client.getCars(), client);
 
-		return "Cadastrado com sucesso!";
+		return client.getId();
 	}
 
 	public ClientDto getOne(){
