@@ -15,7 +15,7 @@ public class OrderService {
     private ServiceOrderRepository repository;
 
 
-    public String saveOrderService(){
+    public String saveOrderService(ServiceOrder order){
         return null;
     }
 
