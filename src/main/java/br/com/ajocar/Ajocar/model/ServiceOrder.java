@@ -26,6 +26,16 @@ public class ServiceOrder implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="client_id")
 	private Client client;
+	@OneToOne
+	private Car car;
+
+	public Car getCar() {
+		return car;
+	}
+
+	public void setCar(Car car) {
+		this.car = car;
+	}
 
 	public ServiceOrder() {
 
