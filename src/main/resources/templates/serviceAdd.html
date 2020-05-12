@@ -26,7 +26,7 @@
 </header>
 <main>
     <section>
-        <h1>Nova ordem de serviço para o cliente <span th:text="${nome}"></span> </h1>
+        <h1>Nova ordem de serviço para o cliente: <span th:text="${nome}"></span> </h1>
     </section>
     <section>
         <div class="row">
@@ -35,9 +35,9 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="form-group">
-                                <label for="car">Escolha uma carro:</label>
-                                <select id="car" class="custom-select">
-                                    <option selected>Open this select menu</option>
+                                <label for="car">Escolha um carro do cliente:</label>
+                                <select id="car" name="car" class="custom-select" >
+                                    <option   th:each="car : ${cars}" th:text="${car.vehicle}" th:value="${car.id}"></option>
                                 </select>
                             </div>
                         </div>
@@ -55,10 +55,10 @@
                                     </thead>
 
                                     <tbody id="principal" >
-                                        <tr >
+                                        <tr class="produtos" >
                                             <td><input class="form-control qtd" placeholder="Ex: 1" value="1" name="qtd[]" type="text" /></td>
                                             <td><input class="form-control" placeholder="Ex: cilindro" value="" name="peca[]" type="text" /></td>
-                                            <td><input class="form-control valorPeca" placeholder="Ex: 25,00" value="250,25" name="valor[]" type="text" /></td>
+                                            <td><input class="form-control valorPeca" placeholder="Ex: 25,00"  value="" name="valor[]" type="number" /></td>
                                             <td>
                                                 <a href="javascript:;">Remover</a>
                                             </td>
@@ -76,8 +76,8 @@
                         </div>
                         <div class="col-lg-4">
                             <div class="form-group">
-                                <label for="telCliente">Total de peças </label>
-                                <input type="text" class="form-control" id="telCliente" required  name="price" readonly>
+                                <label for="tlPecas">Total de peças <span onclick="calc()">Calcular</span></label>
+                                <input type="number" class="form-control" id="tlPecas" required value="0"  name="price" readonly>
                             </div>
                         </div>
                         <div class="col-lg-4">
@@ -97,6 +97,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <input type="submit" class="btn btn-primary" value="Salvar" >
+                            <a href="/">Cancelar</a>
                         </div>
                     </div>
 
@@ -113,28 +114,7 @@
     <p>Desenvolvido por MAXTECH </p>
 </footer>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script>
-    function addProduct() {
-        $('#principal').append('<tr>\n' +
-            '                                    <td><input class="form-control" value="1" name="qtd[]" type="text" /></td>\n' +
-            '                                    <td><input class="form-control" value="nome da peça" name="peca[]" type="text" /></td>\n' +
-            '                                    <td><input class="form-control" value="250,25" name="valor[]" type="text" /></td>\n' +
-            '                                    <td>\n' +
-            '                                        <a href="javascript:;">Remover</a>\n' +
-            '                                    </td>\n' +
-            '                                </tr>');
-    }
+<script src="/js/validServiceOrder.js"></script>
 
-    $('#principal').on('click', 'a', function(){
-        var td = $(this).parent();
-        var tr = $(td).parent();
-
-        tr.css('background', 'red');
-        tr.find('input[type=text], select').attr('disabled', true);
-        tr.hide();
-    });
-
-
-</script>
 </body>
 </html>
