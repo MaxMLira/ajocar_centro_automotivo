@@ -56,9 +56,9 @@
 
                                     <tbody id="principal" >
                                         <tr class="produtos" >
-                                            <td><input class="form-control qtd" placeholder="Ex: 1" value="1" name="qtd[]" type="text" /></td>
-                                            <td><input class="form-control" placeholder="Ex: cilindro" value="" name="piece[]" type="text" /></td>
-                                            <td><input class="form-control valorPeca" placeholder="Ex: 25,00"  value="" name="value[]" type="number" /></td>
+                                            <td><input class="form-control qtd" placeholder="Ex: 1" value="1" th:field="*{products[0].quantity}" type="text" /></td>
+                                            <td><input class="form-control" placeholder="Ex: cilindro" value="" th:field="*{products[0].name}" type="text" /></td>
+                                            <td><input class="form-control valorPeca" placeholder="Ex: 25,00"  value="" th:field="*{products[0].price}" type="number" /></td>
                                             <td>
                                                 <a href="javascript:;">Remover</a>
                                             </td>
@@ -71,25 +71,25 @@
                         </div>
                         <div class="col-lg-12">
                             <label for="obs">Observações</label>
-                            <textarea name="obs" id="obs" class="form-control">
+                            <textarea th:field="*{serviceObservation}" id="obs" class="form-control">
                             </textarea>
                         </div>
                         <div class="col-lg-4">
                             <div class="form-group">
                                 <label for="tlPecas">Total de peças <span onclick="calc()">Calcular</span></label>
-                                <input type="number" class="form-control" id="tlPecas" required value="0"  name="price" readonly>
+                                <input type="number" class="form-control" id="tlPecas" required value="0" th:field="*{piecesTotal}" readonly>
                             </div>
                         </div>
                         <div class="col-lg-4">
                             <div class="form-group">
                                 <label for="maoDeObra">Mão de obra </label>
-                                <input type="text" class="form-control" id="maoDeObra" required name="workCuster" placeholder="Ex: 25,00">
+                                <input type="text" class="form-control" id="maoDeObra" required th:field="*{serviceCost}" placeholder="Ex: 25,00">
                             </div>
                         </div>
                         <div class="col-lg-4">
                             <div class="form-group">
                                 <label for="total">Total a Pagar </label>
-                                <input type="text" class="form-control" id="total" required name="total" readonly>
+                                <input type="text" class="form-control" id="total" required  th:field="*{totalWork}" readonly>
                             </div>
                         </div>
                     </div>

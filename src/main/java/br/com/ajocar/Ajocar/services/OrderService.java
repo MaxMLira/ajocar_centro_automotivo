@@ -14,9 +14,14 @@ public class OrderService {
     @Autowired
     private ServiceOrderRepository repository;
 
+    @Autowired
+    ProductService productService;
 
-    public String saveOrderService(ServiceOrder order){
-        return null;
+    public Boolean saveOrderService(ServiceOrder order){
+        order.setClient(order.getCar().getClient());
+        repository.save(order);
+        productService.saveProducts(order.getProducts(),order);
+        return Boolean.TRUE;
     }
 
     public ServiceOrder SearchOrderServiceByID(Integer id){

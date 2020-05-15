@@ -1,4 +1,5 @@
 var sum = 0;
+var productITems = 1;
 function calc() {
     let totalPecas = document.getElementById("tlPecas").value;
     //totalPecas = 0;
@@ -33,13 +34,14 @@ function calc() {
 }
 function addProduct() {
     $('#principal').append(' <tr class="produtos" >\n' +
-        '                                            <td><input class="form-control qtd" placeholder="Ex: 1" value="1" name="qtd[]" type="text" /></td>\n' +
-        '                                            <td><input class="form-control" placeholder="Ex: cilindro" value="" name="piece[]" type="text" /></td>\n' +
-        '                                            <td><input class="form-control valorPeca" placeholder="Ex: 25,00"  value="" name="value[]" type="number" /></td>\n' +
+        '                                            <td><input class="form-control qtd" placeholder="Ex: 1" value="" type="text" id="products'+productITems +'.quantity" name="products['+productITems + '].quantity" /></td>\n' +
+        '                                            <td><input class="form-control" placeholder="Ex: cilindro" value="" type="text" id="products'+productITems + '.name" name="products['+productITems +'].name" /></td>\n' +
+        '                                            <td><input class="form-control valorPeca" placeholder="Ex: 25,00"  value="" type="number" id="products'+productITems + '.price" name="products['+productITems +'].price" /></td>\n' +
         '                                            <td>\n' +
         '                                                <a href="javascript:;">Remover</a>\n' +
         '                                            </td>\n' +
         '                                        </tr>');
+    productITems ++;
 }
 
 $('#principal').on('click', 'a', function(){
@@ -47,6 +49,7 @@ $('#principal').on('click', 'a', function(){
     var tr = $(td).parent();
     if ($(".produtos").length > 1 ) {
         tr.remove();
+        productITems--;
     }
 });
 

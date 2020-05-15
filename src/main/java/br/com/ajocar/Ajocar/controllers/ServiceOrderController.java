@@ -8,6 +8,7 @@ import br.com.ajocar.Ajocar.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -44,9 +45,11 @@ public class ServiceOrderController {
 	}
 
 	@PostMapping("/save")
-	public String save(ServiceOrderDto order){
-
-		return "ok ".concat(order.toString());
+	public String save(@ModelAttribute("service") ServiceOrder service){
+		if(orderService.saveOrderService(service))
+			return "redirect:/serviceOrder";
+		else
+			return "Erro page"; // TODO criar pagina de erro
 
 	}
 
@@ -57,4 +60,8 @@ public class ServiceOrderController {
 		return ResponseEntity.ok().body(serviceOrder);
 	}
 
+	@ModelAttribute(value = "service")
+	public ServiceOrder newService(){
+		return new ServiceOrder();
+	}
 }
