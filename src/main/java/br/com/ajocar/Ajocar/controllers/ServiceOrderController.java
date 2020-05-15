@@ -1,5 +1,6 @@
 package br.com.ajocar.Ajocar.controllers;
 
+import br.com.ajocar.Ajocar.dto.ServiceOrderDto;
 import br.com.ajocar.Ajocar.model.Client;
 import br.com.ajocar.Ajocar.model.ServiceOrder;
 import br.com.ajocar.Ajocar.services.ClientService;
@@ -43,9 +44,9 @@ public class ServiceOrderController {
 	}
 
 	@PostMapping("/save")
-	public String save(ServiceOrder order){
-		orderService.saveOrderService(order);
-		return "ok";
+	public String save(ServiceOrderDto order){
+
+		return "ok ".concat(order.toString());
 
 	}
 

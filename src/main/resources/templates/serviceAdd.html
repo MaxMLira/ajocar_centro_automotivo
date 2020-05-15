@@ -31,7 +31,7 @@
     <section>
         <div class="row">
             <div class="col-md-12">
-                <form id="AddService"   method="post" action="#">
+                <form id="AddService"   method="post" th:action="@{/serviceOrder/save}" th:object="${service}">
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="form-group">
@@ -57,8 +57,8 @@
                                     <tbody id="principal" >
                                         <tr class="produtos" >
                                             <td><input class="form-control qtd" placeholder="Ex: 1" value="1" name="qtd[]" type="text" /></td>
-                                            <td><input class="form-control" placeholder="Ex: cilindro" value="" name="peca[]" type="text" /></td>
-                                            <td><input class="form-control valorPeca" placeholder="Ex: 25,00"  value="" name="valor[]" type="number" /></td>
+                                            <td><input class="form-control" placeholder="Ex: cilindro" value="" name="piece[]" type="text" /></td>
+                                            <td><input class="form-control valorPeca" placeholder="Ex: 25,00"  value="" name="value[]" type="number" /></td>
                                             <td>
                                                 <a href="javascript:;">Remover</a>
                                             </td>
