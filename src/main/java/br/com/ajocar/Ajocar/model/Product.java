@@ -19,7 +19,7 @@ public class Product implements Serializable {
 
 	private String name;
 	private Integer quantity;
-	private Double preco;
+	private Double price;
 	@ManyToOne
 	@JoinColumn(name="serviceOrder_id")
 	private ServiceOrder serviceOrder;
@@ -28,11 +28,11 @@ public class Product implements Serializable {
 
 	}
 
-	public Product(Integer id, String name, Integer quantity, Double preco) {
+	public Product(Integer id, String name, Integer quantity, Double price) {
 		this.id = id;
 		this.name = name;
 		this.quantity = quantity;
-		this.preco = preco;
+		this.price = price;
 	}
 
 	public void setId(Integer id) {
@@ -59,12 +59,12 @@ public class Product implements Serializable {
 		return this.quantity;
 	}
 
-	public void setPreco(Double preco) {
-		this.preco = preco;
+	public void setPrice(Double price) {
+		this.price = price;
 	}
 
-	public Double getPreco() {
-		return this.preco;
+	public Double getPrice() {
+		return this.price;
 	}
 
 	public ServiceOrder getServiceOrder() {

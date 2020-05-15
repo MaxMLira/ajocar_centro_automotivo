@@ -103,7 +103,7 @@ public class ServiceOrder implements Serializable {
 		this.piecesTotal = 0.0;
 		if(!this.products.isEmpty()) {
 			this.products.forEach(product->{
-				this.piecesTotal += (product.getPreco() * product.getQuantity());
+				this.piecesTotal += (product.getPrice() * product.getQuantity());
 			});
 		}else {
 			this.piecesTotal = 0.0;
