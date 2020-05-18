@@ -28,7 +28,8 @@ function calc() {
 
     }
     console.log(somaLocal);
-    document.getElementById("tlPecas").value =  somaLocal;console.log(sum);
+    document.getElementById("tlPecas").value =  somaLocal;
+    document.getElementById("maoDeObra").removeAttribute("readonly");
 
 
 }

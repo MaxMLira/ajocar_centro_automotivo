@@ -6,6 +6,8 @@ import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -19,6 +21,7 @@ public class OrderService {
 
     public Boolean saveOrderService(ServiceOrder order){
         order.setClient(order.getCar().getClient());
+        order.setCreatIn(LocalDate.now());
         repository.save(order);
         productService.saveProducts(order.getProducts(),order);
         return Boolean.TRUE;
@@ -31,4 +34,8 @@ public class OrderService {
                 "Ordem de Serviço não encontrado", ServiceOrder.class.getName()));
     }
 
+    public List<ServiceOrder> getAll() {
+
+        return repository.findAll();
+    }
 }

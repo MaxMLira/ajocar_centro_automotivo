@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +29,8 @@ public class ServiceOrder implements Serializable {
 	private Client client;
 	@OneToOne
 	private Car car;
+	@Column
+	private LocalDate creatIn;
 
 	public Car getCar() {
 		return car;
@@ -120,5 +123,13 @@ public class ServiceOrder implements Serializable {
 
 	public void setClient(Client client) {
 		this.client = client;
+	}
+
+	public LocalDate getCreatIn() {
+		return creatIn;
+	}
+
+	public void setCreatIn(LocalDate creatIn) {
+		this.creatIn = creatIn;
 	}
 }

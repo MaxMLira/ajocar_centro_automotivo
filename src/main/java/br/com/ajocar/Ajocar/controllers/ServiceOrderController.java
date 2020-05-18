@@ -30,6 +30,7 @@ public class ServiceOrderController {
 		ModelAndView home = new ModelAndView();
 
 		home.setViewName("serviceOrder");
+		home.addObject("listOrder",orderService.getAll());
 		return home;
 	}
 
