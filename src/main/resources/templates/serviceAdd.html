@@ -76,14 +76,14 @@
                         </div>
                         <div class="col-lg-4">
                             <div class="form-group">
-                                <label for="tlPecas">Total de peças <span onclick="calc()">Calcular</span></label>
+                                <label for="tlPecas">Total de peças <span id="spanCalc" onclick="calc()">Calcular</span></label>
                                 <input type="number" class="form-control" id="tlPecas" required value="0" th:field="*{piecesTotal}" readonly>
                             </div>
                         </div>
                         <div class="col-lg-4">
                             <div class="form-group">
                                 <label for="maoDeObra">Mão de obra </label>
-                                <input type="text" class="form-control" id="maoDeObra" required th:field="*{serviceCost}" placeholder="Ex: 25,00">
+                                <input type="text" class="form-control" readonly id="maoDeObra" required th:field="*{serviceCost}" placeholder="Ex: 25,00">
                             </div>
                         </div>
                         <div class="col-lg-4">

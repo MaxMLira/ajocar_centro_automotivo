@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -36,7 +36,7 @@
                 <div class="col-md-12">
                     <form action="">
                         <div class="form-group">
-                            <input type="text" value="Pesquise aqui" class="form-control">
+                            <input type="text" placeholder="Pesquise aqui" class="form-control">
                         </div>
                         <div class="form-group">
                             <input type="submit" value="Pesquisar" class="btn btn-primary">
@@ -60,17 +60,24 @@
                                   <tr>                                
                                     <th scope="col">Nome do cliente</th>
                                     <th scope="col">Mão de obra</th>    
-                                    <th scope="col">Valor total</th>                                
+                                    <th scope="col">Valor total</th>
+                                    <th scope="col">Placa do carro</th>
+                                    <th scope="col"> Data de criação</th>
                                     <th scope="col" colspan="4">Ações</th>
                                   </tr>
                                 </thead>
                                 <tbody>
+                                <th:block th:each="service :${listOrder}">
                                   <tr>                                
-                                    <td>Lucas</td>
-                                    <td>R$ 10,00</td>                                
-                                    <td>R$ 100,00</td>                                
+                                    <td th:text="${service.client.name}" ></td>
+                                    <td th:text="${service.serviceCost}"></td>
+                                    <td th:text="${service.totalWork}"></td>
+                                    <td th:text="${service.car.board}"></td>
+                                    <td th:text="${service.creatIn}"></td>
+
                                     <td> <a href="">Editar</a> | Ver | Imprimir | <a href=""> Excluir </a> </td>
-                                  </tr>                              
+                                  </tr>
+                                </th:block>
                                 </tbody>
                               </table>
                             </div>
