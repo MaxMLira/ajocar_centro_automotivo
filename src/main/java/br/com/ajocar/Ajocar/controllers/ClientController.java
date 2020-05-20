@@ -36,7 +36,7 @@ public class ClientController {
 	}
 
 	@PostMapping("/save")
-	public String saveClient(ClientDto client) {
+	public String saveClient(@ModelAttribute("client") Client client) {
 		Integer id = service.saveClient(client);
 		return "redirect:/redirectPage/"+id;
 	}
@@ -47,6 +47,9 @@ public class ClientController {
 
 		return ResponseEntity.ok().body(client);
 	}
-	
+
+
+	@ModelAttribute(value = "client")
+	public Client newClientObject(){return new Client();}
 
 }
