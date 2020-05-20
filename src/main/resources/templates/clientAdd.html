@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -31,71 +31,72 @@
     <section>
         <div class="row">
             <div class="col-md-12">
-                <form id="clientAdd"   method="post" action="/client/save">
+                <form id="clientAdd"   method="post" th:action="@{/client/save}" th:object="${client}">
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="nomeCliente">Nome do cliente </label>
-                                <input type="text" class="form-control" id="nomeCliente" required name="name" placeholder="Nome do cliente">
+                                <input type="text" class="form-control" id="nomeCliente" required th:field="*{name}"  placeholder="Nome do cliente">
                             </div>
                             <div class="form-group">
                                 <label for="telCliente">Telefone do cliente </label>
-                                <input type="tel" class="form-control" id="telCliente" required  name="tel" placeholder="telefone do cliente">
+                                <input type="tel" class="form-control" id="telCliente" required  th:field="*{tel}" placeholder="telefone do cliente">
                             </div>
                             <div class="form-group">
                                 <label for="ruaCliente">Rua </label>
-                                <input type="text" class="form-control" id="ruaCliente" required name="address" placeholder="Ex: av paulista">
+                                <input type="text" class="form-control" id="ruaCliente" required th:field="*{address.address}" placeholder="Ex: av paulista">
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="bairroCliente">Bairro</label>
-                                <input type="text" class="form-control" id="bairroCliente"  required name="distric" placeholder="Ex: jardim lourdes">
+                                <input type="text" class="form-control" id="bairroCliente"  required th:field="*{address.distric}" placeholder="Ex: jardim lourdes">
                             </div>
                             <div class="form-group">
                                 <label for="numCliente">Número</label>
-                                <input type="text" class="form-control" id="numCliente" required name="number"  placeholder="Ex: 26">
+                                <input type="text" class="form-control" id="numCliente" required  th:field="*{address.number}"  placeholder="Ex: 26">
                             </div>
                             <div class="form-group">
                                 <label for="estaCliente">Estado</label>
-                                <input type="text" class="form-control" id="estaCliente" required name="state"   placeholder="Ex: sao paulo">
+                                <input type="text" class="form-control" id="estaCliente" required  th:field="*{address.state}"  placeholder="Ex: sao paulo">
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
-                            <table class="table" id="table">
-                                <span>Você deve adicionar pelo menos um carro ao cliente</span>
-                                <tr>
-                                    <th scope="col">Placa</th>
-                                    <th scope="col">Combústivel</th>
-                                    <th scope="col">Cor</th>
-                                    <th scope="col">Km atual</th>
-                                    <th scope="col">Veicúlo</th>
-                                </tr>
-                                <tbody id="dinamic-table-body">
-                                <tr></tr>
-                                </tbody>
-                            </table>
-                            <div id="addCar">
-                                <input type="text" class="carInput" required name="boards" id="board"  placeholder="placa">
-                                <input type="text"   class="carInput" required name="fuels" id="fuel" placeholder="combustivel">
-                                <input type="text"  class="carInput" required name="colors" id="color" placeholder="cor">
-                                <input type="number"  class="carInput" required name="kms" id="km" placeholder="km">
-                                <input type="text"  class="carInput" required name="vehicles" id="vehicle" placeholder="veiculo">
-                                <div class="spanAddCar">
-                                    <span class="btn btn-primary" id="botaoAdd" onclick="addItem(event)">adicionar carro</span>
-                                    <span class="btn btn-danger" onclick="removeItem(event)">Remover carro</span>
-                                </div>
+                            <span>Você deve adicionar pelo menos um carro ao cliente</span>
+                            <div style="overflow-y: scroll; height: 129px;">
+                                <table class="table" id="table">
+                                    <tr>
+                                        <th scope="col">Placa</th>
+                                        <th scope="col">Combústivel</th>
+                                        <th scope="col">Cor</th>
+                                        <th scope="col">Km atual</th>
+                                        <th scope="col">Veicúlo</th>
+                                    </tr>
+                                    <tbody id="dinamic-table-body">
+                                        <tr class="cars" >
+                                            <td><input class="form-control" required  id="board"  placeholder="placa" th:field="*{cars[0].board}" type="text" /></td>
+                                            <td><input class="form-control"  th:field="*{cars[0].fuel}" required  id="fuel" placeholder="combustivel" type="text" /></td>
+                                            <td><input class="form-control" required  id="color" placeholder="cor" th:field="*{cars[0].color}" type="text" /></td>
+                                            <td><input class="form-control"  type="number"   required th:field="*{cars[0].kmActually}" id="km" placeholder="km"></td>
+                                            <td><input class="form-control"  type="text" required th:field="*{cars[0].vehicle}" placeholder="veiculo"></td>
+                                            <td>
+                                                <a href="javascript:;">Remover</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
-                            <span id="newCar" style="display: none;cursor: pointer;text-decoration: underline" onclick="newCar()">Clique aqui para adicionar um novo carro</span>
-                            <br>
-
+                        </div>
+                        <div class="col-md-12 pull-right">
+                            <a  href="javascript:;" class="btn btn-primary" style="float: right" onclick="addCar();">Adicionar Carro</a>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <input type="submit" class="btn btn-primary" value="Salvar" >
+                            <input type="submit" class="btn btn-success" value="Salvar" >
+                            <a href="/">Cancelar</a>
                         </div>
                     </div>
 
@@ -111,6 +112,8 @@
 <footer>
     <p>Desenvolvido por MAXTECH </p>
 </footer>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="/js/validClient.js"></script>
 <script>
 
     function save(){
