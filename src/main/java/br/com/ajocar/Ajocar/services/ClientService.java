@@ -23,63 +23,18 @@ public class ClientService {
 		return repository.findAll();
 	}
 
-	public Integer saveClient(ClientDto clientDto) {
-		Client client = Client.toModel(clientDto);
-
-		String message = null;
-
-		if (client.getName() == null || client.getName().isEmpty()) {
-			message = "O nome do cliente não pode estar vazio!";
-			return null;
-		}
-		if (client.getTel() == null || client.getTel().isEmpty()) {
-			message = "O telefone deve ser cadastrado!";
-			return null;
-		}
-		message = verificyAddress(client);
-		if(!message.equals("")) {
-			return null;
-		}
-
-		if (client.getCars() == null || client.getCars().size() == 0) {
-			message = "Pelo menos um carro deve ser cadastrado!";
-			return null;
-		}
+	public Integer saveClient(Client client) {
 		repository.save(client);
 		carService.saveCars(client.getCars(), client);
 
 		return client.getId();
 	}
 
-	public ClientDto getOne(){
-		return null;
+	public void updateClient(Integer id){
+		//Client client = find(id);
+		//TODO
 	}
 
-	public void updateClient(){
-
-	}
-
-	private String verificyAddress(Client client) {
-
-		if (client.getAddress() == null) {
-			return "O Endereço deve ser cadastrado!";
-		}
-		if (client.getAddress().getAddress() == null || client.getAddress().getAddress().isEmpty()) {
-			return "A rua é obrigatória!";
-		}
-		if (client.getAddress().getNumber() == null ||client.getAddress().getNumber().isEmpty()) {
-			return "O número da residência é obrigatório!";
-		}
-		if (client.getAddress().getDistric() == null || client.getAddress().getDistric().isEmpty()) {
-			return "O nome do bairro é obrigatório!";
-		}
-		if (client.getAddress().getState()  == null || client.getAddress().getState().isEmpty()) {
-			return "O nome do estado é obrigatório!";
-		}
-
-		return "";
-
-	}
 
 	public Client find(Integer id){
 		Optional<Client> client = repository.findById(id);
