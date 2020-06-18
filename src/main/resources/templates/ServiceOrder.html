@@ -49,6 +49,9 @@
         </section>        
         <section>
             <div class="row">
+                <div class="col-md-6">
+                    <a href="/redirectPage/newService">Nova ordem de serviço</a>
+                </div>
                 <div class="col-md-12">
                     <div class="card" >
                         <div class="card-body">
@@ -67,17 +70,26 @@
                                   </tr>
                                 </thead>
                                 <tbody>
-                                <th:block th:each="service :${listOrder}">
-                                  <tr>                                
-                                    <td th:text="${service.client.name}" ></td>
-                                    <td th:text="${service.serviceCost}"></td>
-                                    <td th:text="${service.totalWork}"></td>
-                                    <td th:text="${service.car.board}"></td>
-                                    <td th:text="${service.creatIn}"></td>
+                                <span th:if="${noService}" >
+                                   <tr>
+                                        <td>Não tem nenhuma ordem de serviço cadastrada.</td>
+                                    </tr>
+                                </span>
+                                <span th:unless="${noService}">
+                                     <th:block th:each="service :${listOrder}">
+                                      <tr>
+                                        <td th:text="${service.client.name}" ></td>
+                                        <td th:text="${service.serviceCost}"></td>
+                                        <td th:text="${service.totalWork}"></td>
+                                        <td th:text="${service.car.board}"></td>
+                                        <td th:text="${service.creatIn}"></td>
 
-                                    <td> <a href="">Editar</a> | Ver | Imprimir | <a href=""> Excluir </a> </td>
-                                  </tr>
-                                </th:block>
+                                        <td> <a href="">Editar</a> | Ver | Imprimir | <a href=""> Excluir </a> </td>
+                                      </tr>
+                                    </th:block>
+                                </span>
+
+                                </span>
                                 </tbody>
                               </table>
                             </div>
