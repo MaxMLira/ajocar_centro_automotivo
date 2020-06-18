@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Ajocar</title>
+</head>
+<body>
+<header>
+    <nav>
+        <ul>
+            <li>
+                <a href="/">Inicio</a>
+            </li>
+            <li>
+                <a href="/client">Clientes</a>
+            </li>
+            <li>
+                <a href="/serviceOrder"> Ordem de Serviços </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Essa nova order será para um cliente já cadastrado ou um cliente não
+                        cadastrado?</h5>
+                    <span onclick="showSearchClient()" class="btn btn-primary">Cliente já cadastrado</span>
+                    <a href="/client/new" class="btn btn-primary">Cliente ainda não cadastrado</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" id="searchClient" style="display: none;">
+        <div class="col-md-12">
+            <h1>Pesquise o cliente</h1>
+            <form method="post" id="form">
+                <div class="form-group">
+                    <input type="text" placeholder="Pesquise aqui" id="search" class="form-control">
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Pesquisar" class="btn btn-primary">
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row" id="successDiv" style="display: none;">
+        <div class="col-md-12">
+            <table>
+                <tr>
+                    <th scope="col">Nome</th>
+                    <th></th>
+                </tr>
+                <tbody id="clientResult">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row" id="errorDiv" style="display: none;">
+        <p class="error"> Nenhum resultado encontrado.</p>
+    </div>
+</main>
+<footer>
+    <p>Desenvolvido por MAXTECH </p>
+</footer>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+    function showSearchClient() {
+        let searchClient = document.getElementById("searchClient");
+        searchClient.style.display = 'block';
+    }
+
+
+    $("#form").submit(function (event) {
+        event.preventDefault();
+
+
+        var term = {}
+        $.ajax({
+
+            type: "POST",
+            contentType: 'application/json; charset=utf-8',
+            dataType: "json",
+            url: '/ajax/searchClient',
+            data: document.getElementById("search").value,
+            success: function (e) {
+                console.log(e);
+                table(e.id, e.name);
+            },
+            error: function (e) {
+                $("#errorDiv").show();
+            }
+        })
+
+    });
+
+    function table(id, nameClient) {
+        $("#successDiv").show();
+        $('#clientResult').append(' <tr class="clients" >\n' +
+            '                                        <td>' + nameClient + '</td>\n' +
+            '                                        <td><a href="/serviceOrder/new/' + id + '">Selecionar</a> </td>\n' +
+            '                                    </tr>');
+    }
+
+</script>
+</body>
+</html>
