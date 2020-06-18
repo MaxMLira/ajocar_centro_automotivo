@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.xml.ws.Response;
+import java.util.List;
 
 @Controller
 @RequestMapping("/serviceOrder")
@@ -28,9 +29,14 @@ public class ServiceOrderController {
 	public ModelAndView index() {
 
 		ModelAndView home = new ModelAndView();
-
+		List<ServiceOrder> serviceList = orderService.getAll();
 		home.setViewName("serviceOrder");
-		home.addObject("listOrder",orderService.getAll());
+		if (serviceList.isEmpty()) {
+			home.addObject("noService", Boolean.TRUE);
+		} else {
+			home.addObject("noService", Boolean.FALSE);
+			home.addObject("listOrder", serviceList);
+		}
 		return home;
 	}
 
@@ -47,10 +53,14 @@ public class ServiceOrderController {
 
 	@PostMapping("/save")
 	public String save(@ModelAttribute("service") ServiceOrder service){
-		if(orderService.saveOrderService(service))
+		try{
+			orderService.saveOrderService(service);
 			return "redirect:/serviceOrder";
-		else
-			return "Erro page"; // TODO criar pagina de erro
+		}catch (Exception e){
+			return "redirect:/error/serviceOrderSave"; //todo cruar controler de erro
+		}
+
+
 
 	}
 

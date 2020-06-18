@@ -22,4 +22,15 @@ public class RedirectController {
 
     }
 
+    @GetMapping("/newService")
+    public ModelAndView redirectToNewService(){
+
+        ModelAndView redirect = new ModelAndView();
+
+        redirect.setViewName("redirectNewOrder");
+
+        return redirect;
+
+    }
+
 }
