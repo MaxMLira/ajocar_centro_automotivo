@@ -42,4 +42,8 @@ public class ClientService {
 		return client.orElseThrow(() -> new ObjectNotFoundException(
 				"Cliente não encontrado", Client.class.getName()));
 	}
+
+	public Client searchClient(String term) {
+		return repository.findClientByNameContainingOrTel(term,term);
+	}
 }
