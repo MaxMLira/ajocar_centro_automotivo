@@ -27,7 +27,13 @@ public class ClientController {
 		home.addObject("clients", clients);
 		return home;
 	}
-
+	@GetMapping("/view/{id}")
+	public ModelAndView findOne(@PathVariable Integer id) {
+		ModelAndView newClient = new ModelAndView();
+		newClient.addObject("client",service.find(id));
+		newClient.setViewName("clientView");
+		return newClient;
+	}
 	@GetMapping("/new")
 	public ModelAndView newClient() {
 		ModelAndView newClient = new ModelAndView();
@@ -41,12 +47,14 @@ public class ClientController {
 		return "redirect:/redirectPage/"+id;
 	}
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<?> find (@PathVariable Integer id){
-		Client client = service.find(id);
-
-		return ResponseEntity.ok().body(client);
+	@GetMapping(value = "/{id}")
+	public ModelAndView find (@PathVariable Integer id){
+		ModelAndView newClient = new ModelAndView();
+		newClient.setViewName("clientAdd");
+		newClient.addObject("client",service.find(id));
+		return newClient;
 	}
+
 
 
 	@ModelAttribute(value = "client")
