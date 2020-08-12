@@ -1,6 +1,7 @@
 package br.com.ajocar.Ajocar.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -97,4 +98,20 @@ public class Car implements Serializable{
 		this.client = client;
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Car car = (Car) o;
+		return Objects.equals(vehicle, car.vehicle) &&
+				Objects.equals(board, car.board) &&
+				Objects.equals(color, car.color) &&
+				Objects.equals(fuel, car.fuel) &&
+				Objects.equals(kmActually, car.kmActually);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(vehicle, board, color, fuel, kmActually);
+	}
 }

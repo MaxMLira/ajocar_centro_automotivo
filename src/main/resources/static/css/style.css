@@ -59,3 +59,6 @@ footer{
     height: 100px;
     color: #ffffff;
 }
+.removeCar span{
+    opacity:0;
+}

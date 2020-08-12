@@ -13,6 +13,8 @@
 
             display: none;
         }*/
+
+
     </style>
 </head>
 <body>
@@ -78,7 +80,6 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
-                            <span>Você deve adicionar pelo menos um carro ao cliente</span>
                             <div style="overflow-y: scroll; height: 129px;">
                                 <table class="table" id="table">
                                     <tr>
@@ -90,7 +91,8 @@
                                     </tr>
                                     <tbody id="dinamic-table-body">
                                     <tr class="cars" th:each="car : ${cars}">
-                                        <td style="display: none"><input type="hidden" placeholder="idCarro" th:value="${car.id}"></td>
+                                        <td style="display: none"><input type="hidden" placeholder="idCarro"
+                                                                         th:value="${car.id}"></td>
                                         <td><input class="form-control" required placeholder="placa" type="text"
                                                    th:value="${car.board}"/></td>
                                         <td><input class="form-control" required placeholder="combustivel" type="text"
@@ -102,7 +104,8 @@
                                         <td><input class="form-control" required placeholder="veiculo" type="text"
                                                    th:value="${car.vehicle}"></td>
                                         <td>
-                                            <a href="javascript:;">Remover</a>
+                                            <a href="javascript:;" class="removeCar" onclick="removeCar(this)">Remover
+                                                <span th:text="${car.id}"></span></a>
                                         </td>
                                     </tr>
                                     </tbody>
@@ -130,14 +133,35 @@
 
     </section>
 </main>
-
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Atenção</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
 <footer>
     <p>Desenvolvido por MAXTECH </p>
 </footer>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
 <script>
+    var carsList = 0;
     $( document ).ready(function() {
-        var carsList = 0;
+
+
         $(".cars").each(function( index ) {
             $(this).find('td').find('input').each(function (index) {
                 let place = $(this).attr("placeholder");
@@ -167,19 +191,7 @@
 
         console.log(carsList);
 
-        function addCar() {
-            $('#dinamic-table-body').append(' <tr class="cars" >\n' +
-                '                                        <td><input class="form-control" type="text" name="cars[' + carsList + '].board"   id="board"  placeholder="placa" required /></td>\n' +
-                '                                        <td><input class="form-control" type="text" name="cars[' + carsList + '].fuel"    id="fuel"   placeholder="combustivel" required  /></td>\n' +
-                '                                        <td><input class="form-control" type="text" name="cars[' + carsList + '].color" id="color"  placeholder="cor"   required /></td>\n' +
-                '                                        <td><input class="form-control" type="number" name="cars[' + carsList + '].kmActually" id="km" placeholder="km" required></td>\n' +
-                '                                        <td><input class="form-control" type="text" name="cars[' + carsList + '].vehicle" id="vehicle"      placeholder="veiculo" required></td>\n' +
-                '                                        <td>\n' +
-                '                                            <a href="javascript:;">Remover</a>\n' +
-                '                                        </td>\n' +
-                '                                    </tr>');
-            carsList++;
-        }
+
 
 
         $('#dinamic-table-body').on('click', 'a', function () {
@@ -188,6 +200,66 @@
             }
         });
     });
+     function removeCar(el) {
+            let id = el.children[0].innerText;
+           $.ajax({
+
+                type: "DELETE",
+                contentType: 'application/json; charset=utf-8',
+                dataType: "json",
+                url: '/ajax/deleteCar',
+                data: id,
+                success: function (e) {
+                      if(e.status === 200){
+                        removeCarRow(el);
+                        $('.modal-body p').text('Carro excluido com sucesso.');
+                        $('#modal').modal();
+
+                    }else{
+                        $('.modal-body p').text('erro ao tentar excluir carro.');
+                        $('#modal').modal();
+                    }
+
+                },
+                error: function (e) {
+                    if(e.status === 200){
+                        removeCarRow(el);
+                        $('.modal-body p').text('Carro excluido com sucesso.');
+                        $('#modal').modal();
+
+                    }else{
+                        $('.modal-body p').text('erro ao tentar excluir carro.');
+                        $('#modal').modal();
+                    }
+
+                }
+            });
+    }
+    function removeCarRow(row){
+        var td = row.parentNode;
+        var tr = td.parentNode;
+        if ($(".cars").length > 1 ) {
+            tr.remove();
+            carsList--;
+        }
+
+    }
+
+    function addCar() {
+        $('#dinamic-table-body').append(' <tr class="cars" >\n' +
+            '                                        <td><input class="form-control" type="text" name="cars[' + carsList + '].board"   id="board"  placeholder="placa" required /></td>\n' +
+            '                                        <td><input class="form-control" type="text" name="cars[' + carsList + '].fuel"    id="fuel"   placeholder="combustivel" required  /></td>\n' +
+            '                                        <td><input class="form-control" type="text" name="cars[' + carsList + '].color" id="color"  placeholder="cor"   required /></td>\n' +
+            '                                        <td><input class="form-control" type="number" name="cars[' + carsList + '].kmActually" id="km" placeholder="km" required></td>\n' +
+            '                                        <td><input class="form-control" type="text" name="cars[' + carsList + '].vehicle" id="vehicle"      placeholder="veiculo" required></td>\n' +
+            '                                        <td>\n' +
+            '                                            <a href="javascript:;">Remover</a>\n' +
+            '                                        </td>\n' +
+            '                                    </tr>');
+        carsList++;
+    }
+
+
 </script>
 </body>
 </html>

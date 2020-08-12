@@ -74,4 +74,11 @@ public class Address implements Serializable {
 		return this.state;
 	}
 
+	public Address update(Address address) {
+		this.address = address.getAddress();
+		this.distric = address.getDistric();
+		this.number = address.getNumber();
+		this.state = address.getState();
+		return this;
+	}
 }

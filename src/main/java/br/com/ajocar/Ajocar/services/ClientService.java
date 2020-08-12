@@ -1,6 +1,7 @@
 package br.com.ajocar.Ajocar.services;
 
 import br.com.ajocar.Ajocar.dto.ClientDto;
+import br.com.ajocar.Ajocar.model.Car;
 import br.com.ajocar.Ajocar.model.Client;
 import br.com.ajocar.Ajocar.repositories.ClientRepository;
 import org.hibernate.ObjectNotFoundException;
@@ -30,9 +31,11 @@ public class ClientService {
 		return client.getId();
 	}
 
-	public void updateClient(Integer id){
-		//Client client = find(id);
-		//TODO
+	public void updateClient(Integer id, Client clientUpdate){
+		Client client = find(id);
+		List<Car> carsUpdated = client.update(clientUpdate);
+		repository.save(client);
+		carService.saveCars(carsUpdated,client);
 	}
 
 

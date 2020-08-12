@@ -39,4 +39,8 @@ public class CarService {
 		repository.saveAll(cars);
 		return "Carros cadastrados com sucesso!";
 	}
+
+	public void deleteCar(Integer id) {
+		repository.deleteById(id);
+	}
 }
