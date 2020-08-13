@@ -29,15 +29,77 @@
 
     <section>
         <div class="row">
-            <div class="col-lg-12">
-                <h1>Cliente: <span th:text="${client.name}"></span></h1>
+            <div class="col-lg-6">
+                <h1><span th:text="${client.name}"></span></h1>
+            </div>
+            <div class="col-lg-6">
+                <a th:href="@{'/client/' + ${client.id} }">Editar</a>
             </div>
         </div>
-    <section>
+        <div class="row">
+            <div class="col-md-6">
+                <h2>Dados pessoais</h2>
+                Telefone: <p th:text="${client.tel}"></p>
+                Rua: <p th:text="${client.address.address}"></p>
+                Número: <p th:text="${client.address.number}"></p>
+                Bairro: <p th:text="${client.address.distric}"></p>
+                Estado<p th:text="${client.address.state}"></p>
+            </div>
+            <div class="col-md-6">
+                <h2>Carros cadastrados</h2>
+                <div style="overflow-y: scroll; height: 135px;">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">Veiculo</th>
+                            <th scope="col">Placa</th>
+                            <th scope="col">Cor</th>
+                            <th scope="col">Combustivel</th>
+                            <th scope="col">Km</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="car : ${client.cars}">
+                            <td th:text="${car.vehicle}"></td>
+                            <td th:text="${car.board}"></td>
+                            <td th:text="${car.color}"></td>
+                            <td th:text="${car.fuel}"></td>
+                            <td th:text="${car.kmActually}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-12">
-                <span></span>
+                <h2>Ordens de serviços cadastradas</h2>
+                <div style="overflow-y: scroll; height: 135px;">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">Mão de obra</th>
+                            <th scope="col">Valor total</th>
+                            <th scope="col">Placa do carro</th>
+                            <th scope="col"> Data de criação</th>
+                            <th scope="col"> </th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="service : ${client.serviceOrders}">
+                            <td th:text="${service.serviceCost}"></td>
+                            <td th:text="${service.totalWork}"></td>
+                            <td th:text="${service.car.board}"></td>
+                            <td th:text="${service.creatIn}"></td>
+                            <td> <a href="">Editar</a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
+
         </div>
 
     </section>

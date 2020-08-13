@@ -1,6 +1,5 @@
 package br.com.ajocar.Ajocar.controllers;
 
-import br.com.ajocar.Ajocar.dto.ServiceOrderDto;
 import br.com.ajocar.Ajocar.model.Client;
 import br.com.ajocar.Ajocar.model.ServiceOrder;
 import br.com.ajocar.Ajocar.services.ClientService;
@@ -8,11 +7,9 @@ import br.com.ajocar.Ajocar.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.xml.ws.Response;
 import java.util.List;
 
 @Controller
@@ -66,7 +63,7 @@ public class ServiceOrderController {
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> searchOrderServiceId(@PathVariable Integer id){
-		ServiceOrder serviceOrder = orderService.SearchOrderServiceByID(id);
+		ServiceOrder serviceOrder = orderService.searchOrderServiceByID(id);
 
 		return ResponseEntity.ok().body(serviceOrder);
 	}

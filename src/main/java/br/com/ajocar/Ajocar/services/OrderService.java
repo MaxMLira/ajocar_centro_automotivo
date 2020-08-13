@@ -27,7 +27,7 @@ public class OrderService {
         return Boolean.TRUE;
     }
 
-    public ServiceOrder SearchOrderServiceByID(Integer id){
+    public ServiceOrder searchOrderServiceByID(Integer id){
         Optional<ServiceOrder> orderService = repository.findById(id);
 
         return orderService.orElseThrow(() -> new ObjectNotFoundException(

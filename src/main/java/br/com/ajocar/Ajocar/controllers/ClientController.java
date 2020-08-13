@@ -1,20 +1,15 @@
 package br.com.ajocar.Ajocar.controllers;
 
-import java.util.List;
-
-import br.com.ajocar.Ajocar.dto.ClientDto;
+import br.com.ajocar.Ajocar.model.Client;
+import br.com.ajocar.Ajocar.services.ClientService;
+import br.com.ajocar.Ajocar.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import br.com.ajocar.Ajocar.model.Client;
-import br.com.ajocar.Ajocar.services.ClientService;
-
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping("/client")
@@ -22,6 +17,8 @@ public class ClientController {
 
 	@Autowired
 	private ClientService service;
+	@Autowired
+	private OrderService serviceOrder;
 
 	@GetMapping("")
 	public ModelAndView index() {
@@ -36,7 +33,6 @@ public class ClientController {
 		ModelAndView newClient = new ModelAndView();
 		Client client = service.find(id);
 		newClient.addObject("client", client);
-		newClient.addObject("cars",client.getCars());
 		newClient.setViewName("clientView");
 		return newClient;
 	}
@@ -55,7 +51,6 @@ public class ClientController {
 	@PostMapping("/update/{id}")
 	public String updateUser(@PathVariable("id") Integer id, @Valid Client client ) {
 		service.updateClient(id,client);
-		//TODO faer o metodo para atualizar os carros manin
 		return "redirect:/client";
 	}
 

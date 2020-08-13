@@ -64,6 +64,7 @@
                                         <th scope="col">Telefone</th>
                                         <th scope="col">Estado</th>
                                         <th scope="col">QTD. Carros</th>
+                                        <th scope="col">QTD. Serviços realizados</th>
                                         <th scope="col" colspan="2">Ações </th>
 
                                     </tr>
@@ -74,6 +75,7 @@
                                         <td th:text="${client.tel}"></td>
                                         <td th:text="${client.address.distric}"></td>
                                         <td th:text="${client.cars.size()}"></td>
+                                        <td th:text="${client.serviceOrders.size()}"></td>
                                         <td><a th:href="@{'/client/view/' + ${client.id}}">Ver</a> | <a th:href="@{'/client/' + ${client.id} }">Editar</a></td>
                                     </tr>
                                     </tbody>
