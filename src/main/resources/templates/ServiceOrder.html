@@ -84,7 +84,7 @@
                                         <td th:text="${service.car.board}"></td>
                                         <td th:text="${service.creatIn}"></td>
 
-                                        <td> <a href="">Editar</a> | Ver | Imprimir | <a href=""> Excluir </a> </td>
+                                        <td> <a  th:href="@{'/serviceOrder/' + ${service.id} }">Editar</a> | Ver | Imprimir | <a href=""> Excluir </a> </td>
                                       </tr>
                                     </th:block>
                                 </span>

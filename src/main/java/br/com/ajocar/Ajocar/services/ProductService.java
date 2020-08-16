@@ -19,4 +19,8 @@ public class ProductService {
         products.forEach(product -> product.setServiceOrder(serviceOrder));
         repository.saveAll(products);
     }
+
+    public void deleteProduct(Integer id) {
+        repository.deleteById(id);
+    }
 }

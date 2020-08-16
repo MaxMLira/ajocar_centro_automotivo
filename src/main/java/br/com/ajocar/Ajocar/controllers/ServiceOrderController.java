@@ -38,7 +38,7 @@ public class ServiceOrderController {
 	}
 
 	@GetMapping("/new/{idClient}")
-	public ModelAndView newserviceOrder(@PathVariable  Integer idClient) {
+	public ModelAndView newServiceOrder(@PathVariable  Integer idClient) {
 		ModelAndView newServiceOrder = new ModelAndView();
 		Client client = clientService.find(idClient);
 		newServiceOrder.addObject("client",idClient);
@@ -54,18 +54,38 @@ public class ServiceOrderController {
 			orderService.saveOrderService(service);
 			return "redirect:/serviceOrder";
 		}catch (Exception e){
-			return "redirect:/error/serviceOrderSave"; //todo cruar controler de erro
+			return "redirect:/error/serviceOrderSave"; //todo criar controler de erro
 		}
 
 
 
 	}
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<?> searchOrderServiceId(@PathVariable Integer id){
+	@GetMapping("/{id}")
+	public ModelAndView searchOrderServiceId(@PathVariable Integer id){
 		ServiceOrder serviceOrder = orderService.searchOrderServiceByID(id);
+		ModelAndView updateService = new ModelAndView();
+		Client client = serviceOrder.getClient();
+		updateService.addObject("service",serviceOrder);
+		updateService.addObject("name",client.getName());
+		updateService.addObject("car",serviceOrder.getCar());
+		updateService.addObject("cars",client.getCars());
+		updateService.addObject("products",serviceOrder.getProducts());
+		updateService.setViewName("serviceUpd");
+		return updateService;
+	}
 
-		return ResponseEntity.ok().body(serviceOrder);
+	@PostMapping("/update")
+	public String update(@ModelAttribute("service") ServiceOrder service){
+		try{
+			orderService.updateOrderService(service);
+			return "redirect:/serviceOrder";
+		}catch (Exception e){
+			return "redirect:/error/serviceOrderSave"; //todo criar controler de erro
+		}
+
+
+
 	}
 
 	@ModelAttribute(value = "service")

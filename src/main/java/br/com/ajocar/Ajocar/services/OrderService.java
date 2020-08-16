@@ -1,5 +1,6 @@
 package br.com.ajocar.Ajocar.services;
 
+import br.com.ajocar.Ajocar.model.Product;
 import br.com.ajocar.Ajocar.model.ServiceOrder;
 import br.com.ajocar.Ajocar.repositories.ServiceOrderRepository;
 import org.hibernate.ObjectNotFoundException;
@@ -37,5 +38,13 @@ public class OrderService {
     public List<ServiceOrder> getAll() {
 
         return repository.findAll();
+    }
+
+    public void updateOrderService(ServiceOrder serviceUpd) {
+        ServiceOrder serviceOrder = repository.getOne(serviceUpd.getId());
+        List<Product> products = serviceOrder.update(serviceUpd);
+        repository.save(serviceOrder);
+        productService.saveProducts(products,serviceOrder);
+
     }
 }

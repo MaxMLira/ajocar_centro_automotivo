@@ -59,6 +59,23 @@ footer{
     height: 100px;
     color: #ffffff;
 }
-.removeCar span{
+.remove span{
     opacity:0;
+}
+.spanCalc{
+    text-decoration: underline;
+    color:blue;
+    cursor: pointer;
+
+}
+.change{
+    opacity: 0.6;
+    cursor: not-allowed;
+
+
+}
+select[readonly] {
+  background: #eee;
+  pointer-events: none;
+  touch-action: none;
 }

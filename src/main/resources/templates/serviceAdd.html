@@ -58,7 +58,7 @@
                                         <tr class="produtos" >
                                             <td><input class="form-control qtd" placeholder="Ex: 1" value="1" th:field="*{products[0].quantity}" type="text" /></td>
                                             <td><input class="form-control" placeholder="Ex: cilindro" value="" th:field="*{products[0].name}" type="text" /></td>
-                                            <td><input class="form-control valorPeca" placeholder="Ex: 25,00"  value="" th:field="*{products[0].price}" type="number" /></td>
+                                            <td><input class="form-control valorPeca money"  placeholder="Ex: 25,00"  value="" th:field="*{products[0].price}" type="text" /></td>
                                             <td>
                                                 <a href="javascript:;">Remover</a>
                                             </td>
@@ -70,7 +70,7 @@
                             <a href="javascript:;" onclick="addProduct();">Adicionar peça</a>
                         </div>
                         <div class="col-lg-12">
-                            <label for="obs">Observações</label>
+                            <label for="obs">Descrição do serviço</label>
                             <textarea th:field="*{serviceObservation}" id="obs" class="form-control">
                             </textarea>
                         </div>

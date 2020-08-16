@@ -30,8 +30,14 @@ function calc() {
     console.log(somaLocal);
     document.getElementById("tlPecas").value =  somaLocal;
     document.getElementById("maoDeObra").removeAttribute("readonly");
+    calcTotal();
 
 
+}
+function calcTotal(){
+    let totalPecas = parseInt(document.getElementById("tlPecas").value);
+    let maoDeObra = parseInt(document.getElementById("maoDeObra").value);
+    document.getElementById("total").value = totalPecas + maoDeObra;
 }
 function addProduct() {
     $('#principal').append(' <tr class="produtos" >\n' +

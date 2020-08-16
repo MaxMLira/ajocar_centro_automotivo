@@ -5,8 +5,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Entity
 public class ServiceOrder implements Serializable {
@@ -131,5 +130,40 @@ public class ServiceOrder implements Serializable {
 
 	public void setCreatIn(LocalDate creatIn) {
 		this.creatIn = creatIn;
+	}
+
+	public List<Product> update(ServiceOrder serviceUpd) {
+		serviceUpd.calcPiecesTotal();
+		serviceUpd.calcTotalWork();
+		this.piecesTotal = serviceUpd.getPiecesTotal();
+		this.serviceObservation = serviceUpd.getServiceObservation();
+		this.piecesTotal =  serviceUpd.getPiecesTotal();
+		this.serviceCost = serviceUpd.getServiceCost();
+		this.totalWork = serviceUpd.getTotalWork();
+		this.car = serviceUpd.getCar();
+		return this.updateProducts(serviceUpd.getProducts());
+	}
+	private List<Product> updateProducts(List<Product> products){
+		List<Product> productsNews = new LinkedList<>();
+		for (Product productDataBase : this.products) {
+			for (Product product : products) {
+				if (productDataBase.getId() == product.getId() ){
+					productDataBase.setName(product.getName());
+					productDataBase.setPrice(product.getPrice());
+					productDataBase.setQuantity(product.getQuantity());
+				}else if(product.getId() == null){
+					productsNews.add(product);
+				}
+			}
+		}
+		if (!productsNews.isEmpty()){
+			Set<Product> set = new HashSet<>(productsNews);
+			productsNews.clear();
+			productsNews.addAll(set);
+			this.products.forEach(product-> productsNews.add(product));
+			return productsNews;
+		}
+
+		return this.products;
 	}
 }

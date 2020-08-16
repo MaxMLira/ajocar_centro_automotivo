@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Ajocar</title>
+</head>
+<body>
+<header>
+    <nav>
+        <ul>
+            <li>
+                <a href="/">Inicio</a>
+            </li>
+            <li>
+                <a href="/client" >Clientes</a>
+            </li>
+            <li>
+                <a href="/serviceOrder"> Ordem de Serviços </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main>
+    <section>
+        <h1>Editar serviço, cliente: <span th:text="${name}"></span> </h1>
+    </section>
+    <section>
+        <div class="row">
+            <div class="col-md-12">
+                <form id="UpdService"   method="post" th:action="@{/serviceOrder/update}" th:object="${service}">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label for="carOrder">Carro selecionado:</label>
+                               <strong> <span th:text="${car.vehicle}" id="carOrder"></span></strong>
+                                <span onclick="changeCar()" class="spanCalc">Mudar</span>
+                                <br>
+                                <div class="change" >
+                                    <label for="car">Carros do cliente:</label>
+                                    <select id="car" readonly="readonly" name="car" class="custom-select" tabindex="-1" >
+                                        <option   th:each="car : ${cars}" th:text="${car.vehicle}" th:value="${car.id}"></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12" >
+                            <h5> Adicionar peças  </h5>
+                            <div style="overflow-y: scroll; height: 129px;">
+                                <table  class="table" border="1" width="100%">
+                                    <thead>
+                                    <tr>
+                                        <td>QTD</td>
+                                        <td>Nome</td>
+                                        <td>Valor</td>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                    </thead>
+
+                                    <tbody id="principal" >
+                                    <tr class="products" th:each="product : ${products}">
+                                        <td style="display: none"><input type="hidden" placeholder="idProduct"
+                                                                         th:value="${product.id}"></td>
+                                        <td><input class="form-control" required placeholder="qtd" type="text"
+                                                   th:value="${product.quantity}"/></td>
+                                        <td><input class="form-control" required placeholder="nome" type="text"
+                                                   th:value="${product.name}"/></td>
+                                        <td><input class="form-control" required placeholder="valor" type="number"
+                                                   th:value="${product.price}"/></td>
+                                        <td>
+                                            <a href="javascript:;" class="remove" onclick="removeProduct(this)">Remover
+                                                <span th:text="${product.id}"></span></a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+
+                                </table>
+                            </div>
+                            <a href="javascript:;" onclick="addProduct()">Adicionar peça</a>
+                        </div>
+                        <div class="col-lg-12">
+                            <label for="obs">Descrição do serviço</label>
+                            <textarea th:field="*{serviceObservation}" id="obs" class="form-control">
+                            </textarea>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="tlPecas">Total de peças <span class="spanCalc" onclick="calc()">Calcular</span></label>
+                                <input type="number" class="form-control" id="tlPecas" required value="0" th:field="*{piecesTotal}" readonly>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="maoDeObra">Mão de obra </label>
+                                <input type="text" class="form-control" readonly id="maoDeObra" required th:field="*{serviceCost}" placeholder="Ex: 25,00">
+                            </div>
+                        </div>
+                        <input th:field="*{id}" type="hidden" >
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="total">Total a Pagar <span class="spanCalc" onclick="calcTotal()">Calcular</span></label></label>
+                                <input type="text" class="form-control" id="total" required  th:field="*{totalWork}" readonly>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <input type="submit" class="btn btn-primary" value="Salvar" >
+                            <a href="/">Cancelar</a>
+                        </div>
+                    </div>
+
+
+                </form>
+            </div>
+        </div>
+
+
+    </section>
+</main>
+
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Atenção</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<footer>
+    <p>Desenvolvido por MAXTECH </p>
+</footer>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+<script src="/js/updateService.js"></script>
+
+</body>
+</html>

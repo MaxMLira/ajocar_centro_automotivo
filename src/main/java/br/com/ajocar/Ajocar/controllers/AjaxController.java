@@ -1,7 +1,9 @@
 package br.com.ajocar.Ajocar.controllers;
 
+import br.com.ajocar.Ajocar.model.Product;
 import br.com.ajocar.Ajocar.services.CarService;
 import br.com.ajocar.Ajocar.services.ClientService;
+import br.com.ajocar.Ajocar.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -22,6 +24,8 @@ public class AjaxController {
 
     @Autowired
     private CarService carService;
+    @Autowired
+    private ProductService productService;
 
     @PostMapping(value = "/searchClient",consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> searchClient(@RequestBody  String term){
@@ -38,6 +42,22 @@ public class AjaxController {
                 return  new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
             else
                 carService.deleteCar(id);
+            return new ResponseEntity<>("OK",HttpStatus.OK);
+
+        }catch (Exception e){
+            return  new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
+        }
+
+
+    }
+
+    @DeleteMapping(value = "/deleteProduct",consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> deleteProduct(@RequestBody  Integer id){
+        try{
+            if (id == null)
+                return  new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
+            else
+                productService.deleteProduct(id);
             return new ResponseEntity<>("OK",HttpStatus.OK);
 
         }catch (Exception e){
