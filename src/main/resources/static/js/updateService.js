@@ -1,7 +1,12 @@
 var productItems = 0;
 var sum = 0;
 $( document ).ready(function() {
+$('#chkTest').prop('checked', ($("#isDone").val() === "true") );
+$('#chkTest').on('change',function(){
+     var value = $(this).is(':checked');
+     $("#isDone").val(value);
 
+})
 
     $(".products").each(function( index ) {
         $(this).find('td').find('input').each(function (index) {

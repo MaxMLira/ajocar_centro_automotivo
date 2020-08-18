@@ -5,11 +5,15 @@ import br.com.ajocar.Ajocar.model.ServiceOrder;
 import br.com.ajocar.Ajocar.services.ClientService;
 import br.com.ajocar.Ajocar.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.io.ByteArrayInputStream;
 import java.util.List;
 
 @Controller
@@ -75,6 +79,19 @@ public class ServiceOrderController {
 		return updateService;
 	}
 
+	@GetMapping("/view/{id}")
+	public ModelAndView orderServiceView(@PathVariable Integer id){
+		ServiceOrder serviceOrder = orderService.searchOrderServiceByID(id);
+		ModelAndView view = new ModelAndView();
+		Client client = serviceOrder.getClient();
+		view.addObject("service",serviceOrder);
+		view.addObject("client",client);
+		view.addObject("products",serviceOrder.getProducts());
+		view.setViewName("serviceOrderView");
+		return view;
+	}
+
+
 	@PostMapping("/update")
 	public String update(@ModelAttribute("service") ServiceOrder service){
 		try{
@@ -84,8 +101,19 @@ public class ServiceOrderController {
 			return "redirect:/error/serviceOrderSave"; //todo criar controler de erro
 		}
 
+	}
 
+	@GetMapping("/printOut/{id}")
+	public  ResponseEntity<InputStreamResource>  orderServicePrint(@PathVariable Integer id){
+		ByteArrayInputStream bis =  orderService.printOut(id);
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Content-Disposition", "inline; filename=ordemdeServico"+id+".pdf");;
 
+		return ResponseEntity
+				.ok()
+				.headers(headers)
+				.contentType(MediaType.APPLICATION_PDF)
+				.body(new InputStreamResource(bis));
 	}
 
 	@ModelAttribute(value = "service")

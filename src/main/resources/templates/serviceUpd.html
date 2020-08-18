@@ -9,21 +9,8 @@
     <title>Ajocar</title>
 </head>
 <body>
-<header>
-    <nav>
-        <ul>
-            <li>
-                <a href="/">Inicio</a>
-            </li>
-            <li>
-                <a href="/client" >Clientes</a>
-            </li>
-            <li>
-                <a href="/serviceOrder"> Ordem de Serviços </a>
-            </li>
-        </ul>
-    </nav>
-</header>
+<header th:replace="fragments/general.html :: header"></header>
+
 <main>
     <section>
         <h1>Editar serviço, cliente: <span th:text="${name}"></span> </h1>
@@ -33,7 +20,7 @@
             <div class="col-md-12">
                 <form id="UpdService"   method="post" th:action="@{/serviceOrder/update}" th:object="${service}">
                     <div class="row">
-                        <div class="col-lg-12">
+                        <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="carOrder">Carro selecionado:</label>
                                <strong> <span th:text="${car.vehicle}" id="carOrder"></span></strong>
@@ -45,6 +32,16 @@
                                         <option   th:each="car : ${cars}" th:text="${car.vehicle}" th:value="${car.id}"></option>
                                     </select>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <input type="hidden" th:field="*{isDone}"  >
+                            <div class="toggle-switch">
+                                <h6>O serviço está pronto: (verde: sim) : (vermelho: não)</h6>
+                                <input type="checkbox" id="chkTest"  name="chkTest" />
+                                <label for="chkTest">
+                                    <span class="toggle-track"></span>
+                                </label>
                             </div>
                         </div>
                         <div class="col-lg-12" >
@@ -110,7 +107,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <input type="submit" class="btn btn-primary" value="Salvar" >
-                            <a href="/">Cancelar</a>
+                            <a href="/serviceOrder">Cancelar</a>
                         </div>
                     </div>
 
@@ -141,8 +138,7 @@
         </div>
     </div>
 </div>
-<footer>
-    <p>Desenvolvido por MAXTECH </p>
+<footer th:replace="fragments/general.html :: footer">
 </footer>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>

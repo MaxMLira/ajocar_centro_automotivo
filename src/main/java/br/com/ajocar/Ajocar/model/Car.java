@@ -114,4 +114,13 @@ public class Car implements Serializable{
 	public int hashCode() {
 		return Objects.hash(vehicle, board, color, fuel, kmActually);
 	}
+
+	public String toLine() {
+
+		return this.vehicle.concat(", Placa: "
+				.concat(this.board.concat(", Cor: "
+						.concat(this.color
+								.concat(", Combustivel: "
+										.concat(this.fuel))))));
+	}
 }

@@ -20,6 +20,7 @@ public class ServiceOrder implements Serializable {
 	private Double piecesTotal;
 	private Double serviceCost;
 	private Double totalWork;
+	private Boolean isDone;
 	@JsonBackReference
 	@OneToMany(mappedBy="serviceOrder")
 	private List<Product> products = new ArrayList<>();
@@ -40,14 +41,15 @@ public class ServiceOrder implements Serializable {
 	}
 
 	public ServiceOrder() {
-
+		this.isDone = Boolean.FALSE;
 	}
 
 	public ServiceOrder(Integer id, String serviceObservation,Double serviceCost) {
 
 		this.id = id;
 		this.serviceObservation = serviceObservation;
-		this.serviceCost = serviceCost;	
+		this.serviceCost = serviceCost;
+		this.isDone = Boolean.FALSE;
 	
 	}
 
@@ -120,6 +122,15 @@ public class ServiceOrder implements Serializable {
 		return client;
 	}
 
+	public Boolean getIsDone() {
+		return isDone;
+	}
+
+	public void setIsDone(Boolean isDone) {
+		this.isDone = isDone;
+	}
+
+
 	public void setClient(Client client) {
 		this.client = client;
 	}
@@ -141,6 +152,7 @@ public class ServiceOrder implements Serializable {
 		this.serviceCost = serviceUpd.getServiceCost();
 		this.totalWork = serviceUpd.getTotalWork();
 		this.car = serviceUpd.getCar();
+		this.setIsDone( serviceUpd.getIsDone());
 		return this.updateProducts(serviceUpd.getProducts());
 	}
 	private List<Product> updateProducts(List<Product> products){

@@ -9,21 +9,7 @@
     <title>Ajocar</title>
 </head>
 <body>
-<header>
-    <nav>
-        <ul>
-            <li>
-                <a href="/">Inicio</a>
-            </li>
-            <li>
-                <a href="/client" >Clientes</a>
-            </li>
-            <li>
-                <a href="/serviceOrder"> Ordem de Serviços </a>
-            </li>
-        </ul>
-    </nav>
-</header>
+<header th:replace="fragments/general.html :: header"></header>
 <main>
     <section>
         <h1>Nova ordem de serviço para o cliente: <span th:text="${nome}"></span> </h1>
@@ -33,12 +19,22 @@
             <div class="col-md-12">
                 <form id="AddService"   method="post" th:action="@{/serviceOrder/save}" th:object="${service}">
                     <div class="row">
-                        <div class="col-lg-12">
+                        <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="car">Escolha um carro do cliente:</label>
                                 <select id="car" name="car" class="custom-select" >
                                     <option   th:each="car : ${cars}" th:text="${car.vehicle}" th:value="${car.id}"></option>
                                 </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                                <input type="hidden" th:field="*{isDone}"  >
+                            <div class="toggle-switch">
+                                <h6>O serviço está pronto: (verde: sim) : (vermelho: não)</h6>
+                                <input type="checkbox" id="chkTest"  name="chkTest" />
+                                <label for="chkTest">
+                                    <span class="toggle-track"></span>
+                                </label>
                             </div>
                         </div>
                         <div class="col-lg-12" >
@@ -110,8 +106,7 @@
     </section>
 </main>
 
-<footer>
-    <p>Desenvolvido por MAXTECH </p>
+<footer th:replace="fragments/general.html :: footer">
 </footer>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="/js/validServiceOrder.js"></script>

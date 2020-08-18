@@ -65,3 +65,8 @@ $('#maoDeObra').on('change',  function(){
     var totalPecas = $("#tlPecas").val();
     $("#total").val(Number(maoDeObra) + Number(totalPecas));
 });
+$('#chkTest').on('change',function(){
+     var value = $(this).is(':checked');
+     $("#isDone").val(value);
+
+})

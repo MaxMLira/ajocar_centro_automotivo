@@ -81,4 +81,11 @@ public class Address implements Serializable {
 		this.state = address.getState();
 		return this;
 	}
+	public String toLine(){
+		return this.address.concat(", Nº: "
+				.concat(this.number
+						.concat(", Bairro: "
+								.concat(this.distric
+										.concat(", UF: ".concat(this.state))))));
+	}
 }
