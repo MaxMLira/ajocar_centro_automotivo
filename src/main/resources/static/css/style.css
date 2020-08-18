@@ -6,16 +6,28 @@ body{
     width: 1024px;
     margin:0 auto;
     border: 1px solid black;
+    border-radius: 13px;
+
+    background: url('../img/header.jpg');
+    background-repeat:no-repeat;
+    background-size: 120%;
+
 }
 header{     
     height: 210px;    
     padding: 12px 0px;
     border-bottom: 1px solid black;
-    background-image: linear-gradient(#c62828,#212121);
+    background: url('../img/header.png');
+    background-repeat: no-repeat;
+    background-size: 82%;
+    background-position: left;
+    background-color:white;
+    border-radius: 16px 0px 0px 0px;
+    border-radius: 16px 0px 0px 0px;
 }
 header img{
-    width: 210px;
-    height: 210px;
+    width: 32%;
+    margin-top: 22px;
     border-radius: 105px;
     background-color: white;
     margin-left: 55px;
@@ -35,6 +47,14 @@ nav ul li{
     font-size: 29px;
 
 }
+nav a{
+    color: black;
+}
+.home{
+    text-decoration:none;
+
+}
+
 section{
     margin: 5% auto;
     width: 90%;
@@ -44,8 +64,9 @@ section h1{
     font-size: 35px;
 }
 main{    
-    
     height: 700px;
+    background: white;
+    padding-top: 2px
 }
 .carInput{
     width: 18%;
@@ -55,9 +76,14 @@ main{
     margin-bottom: 25px;
 }
 footer{
-    background-color: black;
-    height: 100px;
-    color: #ffffff;
+      background-image: linear-gradient(249deg, black, #ff0000fa);
+      height: 100px;
+      text-align: center;
+      color: #ffffff;
+      padding: 25px;
+      font-weight: 600;
+      height: 122px;
+          border-radius: 0px 0px 12px 12px;
 }
 .remove span{
     opacity:0;
@@ -78,4 +104,28 @@ select[readonly] {
   background: #eee;
   pointer-events: none;
   touch-action: none;
+}
+/*checkbox*/
+
+.toggle-switch input[type=checkbox] {display:none}
+.toggle-switch label {cursor:pointer;}
+.toggle-switch label .toggle-track {
+  display:block;height:40px;width:80px;background:#eee;border-radius:20px;
+  position:relative;
+  margin-bottom:15px;border:1px solid #ccc;
+}
+
+.toggle-switch .toggle-track:before{
+  content:'';
+  display:inline-block;height:40px;width:40px;background:red;
+  border-radius:20px;
+  position:absolute;
+  top:0;
+  right:0;
+  transition:right .2s ease-in;
+}
+
+.toggle-switch input[type="checkbox"]:checked + label .toggle-track:before{
+  background:green;
+  right:40px;
 }

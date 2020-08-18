@@ -18,21 +18,7 @@
     </style>
 </head>
 <body>
-<header>
-    <nav>
-        <ul>
-            <li>
-                <a href="/">Inicio</a>
-            </li>
-            <li>
-                <a href="/client">Clientes</a>
-            </li>
-            <li>
-                <a href="/serviceOrder"> Ordem de Serviços </a>
-            </li>
-        </ul>
-    </nav>
-</header>
+<header th:replace="fragments/general.html :: header"></header>
 <main>
     <section>
         <h1>Atualizar cliente</h1>
@@ -151,8 +137,7 @@
         </div>
     </div>
 </div>
-<footer>
-    <p>Desenvolvido por MAXTECH </p>
+<footer th:replace="fragments/general.html :: footer">
 </footer>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>

@@ -10,21 +10,8 @@
     <title>Ajocar</title>
 </head>
 <body>
-<header>
-    <nav>
-        <ul>
-            <li>
-                <a href="/">Inicio</a>
-            </li>
-            <li>
-                <a href="/client">Clientes</a>
-            </li>
-            <li>
-                <a href="/serviceOrder"> Ordem de Serviços </a>
-            </li>
-        </ul>
-    </nav>
-</header>
+<header th:replace="fragments/general.html :: header"></header>
+
 <main>
 
     <section>
@@ -93,7 +80,7 @@
                             <td th:text="${service.totalWork}"></td>
                             <td th:text="${service.car.board}"></td>
                             <td th:text="${service.creatIn}"></td>
-                            <td> <a href="">Editar</a></td>
+                            <td> <a th:href="@{'/serviceOrder/' + ${service.id} }">Editar</a></td>
                         </tr>
                         </tbody>
                     </table>
@@ -104,8 +91,7 @@
 
     </section>
 </main>
-<footer>
-    <p>Desenvolvido por MAXTECH </p>
+<footer th:replace="fragments/general.html :: footer">
 </footer>
 </body>
 </html>

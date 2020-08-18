@@ -4,105 +4,101 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
     <title>Ajocar</title>
 </head>
 <body>
-    <header>
-        <nav>
-            <ul>
-                <li>
-                    <a href="/">Inicio</a>
-                </li>
-                <li>
-                    <a href="/client" >Clientes</a>
-                </li>
-                <li>
-                    <a href="/serviceOrder"> Ordem de Serviços </a>
-                </li>
-            </ul>
-        </nav>
-    </header>
-    <main>
-        <section>
-            <div class="row">
-                <div class="col-lg-12">
-                    <h1>Ordens de Serviços</h1>
-                </div>
+<header th:replace="fragments/general.html :: header"></header>
+
+<main>
+    <section>
+        <div class="row">
+            <div class="col-lg-12">
+                <h1>Ordens de Serviços</h1>
             </div>
-            
-            <div class="row">
-                <div class="col-md-12">
-                    <form action="">
-                        <div class="form-group">
-                            <input type="text" placeholder="Pesquise aqui" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <input type="submit" value="Pesquisar" class="btn btn-primary">
-                        </div>
-                    </form>
-                    
-                    
-                </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <form action="">
+                    <div class="form-group">
+                        <input type="text" placeholder="Pesquise aqui" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Pesquisar" class="btn btn-primary">
+                    </div>
+                </form>
+
+
             </div>
-        </section>        
-        <section>
-            <div class="row">
-                <div class="col-md-6">
-                    <a href="/redirectPage/newService">Nova ordem de serviço</a>
-                </div>
-                <div class="col-md-12">
-                    <div class="card" >
-                        <div class="card-body">
-                          <h5 class="card-title">Lista de serviços já realizados </h5>
-                          <div class="row">
+        </div>
+    </section>
+    <section>
+        <div class="row">
+            <div class="col-md-6">
+                <a href="/redirectPage/newService">Nova ordem de serviço</a>
+            </div>
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Lista de serviços já realizados </h5>
+                        <span>Selecionar todos</span>
+                        <input type="checkbox" id="checkAll">
+                        <div class="row">
                             <div class="col-md-12">
-                              <table class="table">
-                                <thead>
-                                  <tr>                                
-                                    <th scope="col">Nome do cliente</th>
-                                    <th scope="col">Mão de obra</th>    
-                                    <th scope="col">Valor total</th>
-                                    <th scope="col">Placa do carro</th>
-                                    <th scope="col"> Data de criação</th>
-                                    <th scope="col" colspan="4">Ações</th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                <span th:if="${noService}" >
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">&nbsp;</th>
+                                        <th scope="col">Nome do cliente</th>
+                                        <th scope="col">Mão de obra</th>
+                                        <th scope="col">Valor total</th>
+                                        <th scope="col">Placa do carro</th>
+                                        <th scope="col"> Data de criação</th>
+                                        <th scope="col"> Finalizado</th>
+                                        <th scope="col" colspan="4">Ações</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <span th:if="${noService}">
                                    <tr>
                                         <td>Não tem nenhuma ordem de serviço cadastrada.</td>
                                     </tr>
                                 </span>
-                                <span th:unless="${noService}">
+                                    <span th:unless="${noService}">
                                      <th:block th:each="service :${listOrder}">
                                       <tr>
-                                        <td th:text="${service.client.name}" ></td>
+                                          <td><input type="checkbox" class="done"></td>
+                                        <td th:text="${service.client.name}"></td>
                                         <td th:text="${service.serviceCost}"></td>
                                         <td th:text="${service.totalWork}"></td>
                                         <td th:text="${service.car.board}"></td>
                                         <td th:text="${service.creatIn}"></td>
+                                        <td th:text="${service.isDone}?'Sim':'Não'"></td>
 
-                                        <td> <a  th:href="@{'/serviceOrder/' + ${service.id} }">Editar</a> | Ver | Imprimir | <a href=""> Excluir </a> </td>
+                                        <td> <a th:href="@{'/serviceOrder/' + ${service.id} }">Editar</a> | <a
+                                                th:href="@{'/serviceOrder/view/' + ${service.id} }">Ver</a> | <a
+                                                target="_blank" th:href="@{'/serviceOrder/printOut/' + ${service.id} }">Imprimir</a> | <a
+                                                href=""> Excluir </a> </td>
                                       </tr>
                                     </th:block>
                                 </span>
 
-                                </span>
-                                </tbody>
-                              </table>
+                                    </span>
+                                    </tbody>
+                                </table>
                             </div>
-                          </div>                          
                         </div>
-                      </div>
-                </div>                
-            </div>            
-              
-        </section>
-    </main>
-    <footer>
-        <p>Desenvolvido por MAXTECH </p>
-    </footer>    
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+</main>
+<footer th:replace="fragments/general.html :: footer">
+</footer>
 </body>
 </html>

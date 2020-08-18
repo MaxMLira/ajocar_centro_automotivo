@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:fragment="headerfiles">
+    <meta charset="UTF-8">
+    <title>Ajocar</title>
+    <link th:href="@{/css/styles.css}" rel="stylesheet">
+</head>
+<body>
+<header th:fragment="header">
+    <a class="home" th:href="@{/}"><img src="/img/ajocar_logo.png"  alt=""></a>
+    <nav>
+        <ul>
+            <li>
+                <a href="/">Inicio</a>
+            </li>
+            <li>
+                <a href="/client">Clientes</a>
+            </li>
+            <li>
+                <a href="/serviceOrder"> Ordem de Serviços </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<footer th:fragment="footer">
+    <p>&copy; Ajocar Centro automotivo - Todos os Direitos Reservados 2020</p>
+    <p>&copy; Desenvolvido por MAXTECH 2020</p>
+</footer>
+</body>
+</html>

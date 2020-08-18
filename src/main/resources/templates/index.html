@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,22 +9,9 @@
     <title>Ajocar</title>
 </head>
 <body>
-    <header>        
-        <nav>
-            <ul>
-                <li>
-                    <a href="/">Inicio</a>
-                </li>
-                <li>
-                    <a href="/client" >Clientes</a>
-                </li>
-                <li>
-                    <a href="/serviceOrder"> Ordem de Serviços </a>
-                </li>
-            </ul>
-        </nav> 
-    </header>
-    <main>
+<header th:replace="fragments/general.html :: header"></header>
+
+<main>
         <section>
             <h1>O que você gostaria de fazer?</h1>
         </section>        
@@ -35,7 +22,7 @@
                         <div class="card-body">
                           <h5 class="card-title">Criar nova ordem de serviço</h5>
                           <p class="card-text">Aqui você pode criar uma ordem de serviço para um novo cliente ou um que já existe .</p>
-                          <a href="#" class="btn btn-primary">Clique aqui</a>
+                          <a href="/redirectPage/newService" class="btn btn-primary">Clique aqui</a>
                         </div>
                       </div>
                 </div>
@@ -53,8 +40,7 @@
               
         </section>
     </main>
-    <footer>
-        <p>Desenvolvido por MAXTECH </p>
-    </footer>    
+    <footer th:replace="fragments/general.html :: footer">
+    </footer>
 </body>
 </html>

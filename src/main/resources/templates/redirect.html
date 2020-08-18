@@ -9,21 +9,8 @@
     <title>Ajocar</title>
 </head>
 <body>
-<header>
-    <nav>
-        <ul>
-            <li>
-                <a href="/">Inicio</a>
-            </li>
-            <li>
-                <a href="/client" >Clientes</a>
-            </li>
-            <li>
-                <a href="/serviceOrder"> Ordem de Serviços </a>
-            </li>
-        </ul>
-    </nav>
-</header>
+<header th:replace="fragments/general.html :: header"></header>
+
 <main>
     <section>
 
@@ -41,8 +28,7 @@
     </div>
 
 </main>
-<footer>
-    <p>Desenvolvido por MAXTECH </p>
+<footer th:replace="fragments/general.html :: footer">
 </footer>
 </body>
 </html>

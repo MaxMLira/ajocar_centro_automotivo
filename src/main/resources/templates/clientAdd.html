@@ -9,21 +9,8 @@
     <title>Ajocar</title>
 </head>
 <body>
-<header>
-    <nav>
-        <ul>
-            <li>
-                <a href="/">Inicio</a>
-            </li>
-            <li>
-                <a href="/client" >Clientes</a>
-            </li>
-            <li>
-                <a href="/serviceOrder"> Ordem de Serviços </a>
-            </li>
-        </ul>
-    </nav>
-</header>
+<header th:replace="fragments/general.html :: header"></header>
+
 <main>
     <section>
         <h1>Adicionar novo cliente</h1>
@@ -109,8 +96,7 @@
     </section>
 </main>
 
-<footer>
-    <p>Desenvolvido por MAXTECH </p>
+<footer th:replace="fragments/general.html :: footer">
 </footer>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="/js/validClient.js"></script>
