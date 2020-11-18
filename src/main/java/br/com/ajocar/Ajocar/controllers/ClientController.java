@@ -4,12 +4,14 @@ import br.com.ajocar.Ajocar.model.Client;
 import br.com.ajocar.Ajocar.services.ClientService;
 import br.com.ajocar.Ajocar.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @Controller
 @RequestMapping("/client")
@@ -21,11 +23,11 @@ public class ClientController {
 	private OrderService serviceOrder;
 
 	@GetMapping("")
-	public ModelAndView index() {
+	public ModelAndView index(@PageableDefault(size = 1)Pageable pageable) {
 		ModelAndView home = new ModelAndView();
-		List<Client> clients = service.getAll();
+		Page<Client> page = service.getAll(pageable);
 		home.setViewName("client");
-		home.addObject("clients", clients);
+		home.addObject("page", page);
 		return home;
 	}
 	@GetMapping("/view/{id}")
