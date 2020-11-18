@@ -19,23 +19,14 @@
                 <h1>Clientes</h1>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-12">
-                <form action="">
-                    <div class="form-group">
-                        <input type="text" value="Pesquise aqui" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <input type="submit" value="Pesquisar" class="btn btn-primary">
-                    </div>
-                </form>
-            </div>
-        </div>
     </section>
     <section>
         <div class="row">
             <div class="col-md-6">
                 <a href="/client/new">Novo cliente</a>
+            </div>
+            <div class="col-md-6">
+                <input type="text" id="search" class="form-group" onkeyup="search()" placeholder="pesquise aqui">
             </div>
             <div class="col-md-12">
                 <div class="card">
@@ -43,7 +34,7 @@
                         <h5 class="card-title">Lista de clientes</h5>
                         <div class="row">
                             <div class="col-md-12">
-                                <table class="table">
+                                <table class="table" id="tableSearch">
                                     <thead>
                                     <tr>
                                         <th scope="col">Nome</th>
@@ -56,8 +47,9 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr th:each="client : ${clients}">
+                                    <tr th:each="client :${page.content}">
                                         <td th:text="${client.name}"></td>
+
                                         <td th:text="${client.tel}"></td>
                                         <td th:text="${client.address.distric}"></td>
                                         <td th:text="${client.cars.size()}"></td>
@@ -66,6 +58,20 @@
                                     </tr>
                                     </tbody>
                                 </table>
+                                <div class="pagination-div">
+                                    <span th:if="${page.hasPrevious()}">
+                                        <a th:href="@{/client(page=${page.number-1},size=${page.size})}"><</a>
+                                    </span>
+                                    <th:block th:each="i: ${#numbers.sequence(0, page.totalPages - 1)}">
+                                        <span th:if="${page.number == i}" class="selected">[[${i}+1]]</span>
+                                        <span th:unless="${page.number == i}">
+                                            <a th:href="@{/client(page=${i},size=${page.size})}">[[${i}+1]]</a>
+                                        </span>
+                                    </th:block>
+                                    <span th:if="${page.hasNext()}">
+                                              <a th:href="@{/client(page=${page.number+1},size=${page.size})}"> > </a>
+                                     </span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -77,5 +83,6 @@
 </main>
 <footer th:replace="fragments/general.html :: footer">
 </footer>
+<script th:src="@{'/js/tableSearch.js'}"></script>
 </body>
 </html>

@@ -22,7 +22,7 @@
                         <div class="card-body">
                           <h5 class="card-title">Criar nova ordem de serviço</h5>
                           <p class="card-text">Aqui você pode criar uma ordem de serviço para um novo cliente ou um que já existe .</p>
-                          <a href="/redirectPage/newService" class="btn btn-primary">Clique aqui</a>
+                          <a th:href="@{'/redirectPage/newService'}" class="btn btn-primary">Clique aqui</a>
                         </div>
                       </div>
                 </div>
@@ -31,7 +31,7 @@
                         <div class="card-body">
                           <h5 class="card-title">Cadastrar novo cliente</h5>
                           <p class="card-text">Aqui você pode cadastrar um cliente, e no menu clientes poderá alterar um já existente além de poder ver a lista de clientes</p>
-                          <a href="/client/new" class="btn btn-primary">Clique aqui</a>
+                          <a th:href="@{'/client/new' }" class="btn btn-primary">Clique aqui</a>
                         </div>
                       </div>
                 </div>         
